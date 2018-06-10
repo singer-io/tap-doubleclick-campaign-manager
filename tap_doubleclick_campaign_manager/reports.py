@@ -87,6 +87,7 @@ def process_file(service, fieldmap, report_config, file_id):
             # skip report grant total line
             if row[0] == 'Grand Total:':
                 return
+            ## TODO: add _sdc report columns
             obj = {}
             for i in range(len(fieldmap)):
                 field = fieldmap[i]
@@ -105,24 +106,31 @@ def process_file(service, fieldmap, report_config, file_id):
     with singer.metrics.record_counter(stream_name) as counter:
         counter.increment(line_state['count'])
 
-## criteria - STANDARD and FLOODLIGHT
-## pathToConversionCriteria - PATH_TO_CONVERSION
-## crossDimensionReachCriteria - CROSS_DIMENSION_REACH
-## reachCriteria - REACH
-
 def get_fields(field_type_lookup, report):
-    columns = None
-    for criteria_obj_key in ['criteria', 'floodlightCriteria', 'reachCriteria']: ## TODO: more??
-        criteria_obj = report.get(criteria_obj_key)
-        if criteria_obj:
-            columns = (
-                list(map(lambda x: x['name'], criteria_obj['dimensions'])) +
-                criteria_obj['metricNames']
-            )
-            break
+    report_type = report['type']
+    if report_type == 'STANDARD':
+        criteria_obj = report['criteria']
+        dimensions = criteria_obj['dimensions']
+        metric_names = criteria_obj['metricNames']
+    elif report_type == 'FLOODLIGHT':
+        criteria_obj = report['floodlightCriteria']
+        dimensions = criteria_obj['dimensions']
+        metric_names = criteria_obj['metricNames']
+    elif report_type == 'CROSS_DIMENSION_REACH':
+        criteria_obj = report['crossDimensionReachCriteria']
+        dimensions = criteria_obj['breakdown']
+        metric_names = criteria_obj['metricNames'] + criteria_obj['overlapMetricNames']
+    elif report_type == 'PATH_TO_CONVERSION':
+        criteria_obj = report['pathToConversionCriteria']
+        dimensions = criteria_obj['conversionDimensions'] + criteria_obj['customFloodlightVariables']
+        metric_names = criteria_obj['metricNames'] + criteria_obj['perInteractionDimensions']
+    elif report_type == 'PATH_TO_CONVERSION':
+        criteria_obj = report['criteria']
+        dimensions = criteria_obj['dimensions']
+        metric_names = criteria_obj['metricNames'] + criteria_obj['reachByFrequencyMetricNames']
 
-    if not columns:
-        raise Exception('Report criteria not found')
+    dimensions = list(map(lambda x: x['name'], dimensions))
+    columns = dimensions + metric_names
 
     fieldmap = []
     for column in columns:
@@ -132,6 +140,25 @@ def get_fields(field_type_lookup, report):
         })
 
     return fieldmap
+
+def write_schema(stream_name, fieldmap):
+    ## TODO: add _sdc report columns
+    properties = {}
+    for field in fieldmap:
+        _type = field['type']
+        if _type == 'long':
+            _type = 'integer'
+        elif _type == 'double':
+            _type = 'number'
+        properties[field['name']] = {
+            'type': ['null', _type]
+        }
+    schema = {
+        'type': 'object',
+        'properties': properties,
+        'addtionalProperties': False
+    }
+    singer.write_schema(stream_name, schema, [])
 
 def sync_report(service, field_type_lookup, state, profile_id, report_config):
     ## TODO: job metric
@@ -150,6 +177,7 @@ def sync_report(service, field_type_lookup, state, profile_id, report_config):
     )
 
     fieldmap = get_fields(field_type_lookup, report)
+    write_schema(stream_name, fieldmap)
 
     report_file = (
         service
@@ -177,7 +205,7 @@ def sync_report(service, field_type_lookup, state, profile_id, report_config):
             process_file(service, fieldmap, report_config, report_file_id)
             break
         elif status != 'PROCESSING':
-            message = '{}: {} / {} - File status is {}, processing failed'.format(
+            message = '{}: report_id {} / file_id {} - File status is {}, processing failed'.format(
                     stream_name,
                     report_id,
                     report_file_id,
@@ -185,7 +213,7 @@ def sync_report(service, field_type_lookup, state, profile_id, report_config):
             LOGGER.error(message)
             raise Exception(message)
         elif time.time() - start_time > MAX_RETRY_ELAPSED_TIME:
-            message = '{}: {} / {} - File processing deadline exceeded ({} secs)'.format(
+            message = '{}: report_id {} / file_id {} - File processing deadline exceeded ({} secs)'.format(
                     stream_name,
                     report_id,
                     report_file_id,
@@ -195,7 +223,7 @@ def sync_report(service, field_type_lookup, state, profile_id, report_config):
             raise Exception(message)
 
         sleep = next_sleep_interval(sleep)
-        LOGGER.info('{}: {} / {} - File status is {}, sleeping for {} seconds'.format(
+        LOGGER.info('{}: report_id {} / file_id {} - File status is {}, sleeping for {} seconds'.format(
                     stream_name,
                     report_id,
                     report_file_id,

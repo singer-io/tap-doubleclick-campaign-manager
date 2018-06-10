@@ -9,8 +9,8 @@ from singer import metadata
 from googleapiclient import discovery
 from oauth2client import client, GOOGLE_TOKEN_URI, GOOGLE_REVOKE_URI
 
-from tap_doubleclick_campaign_managers.discover import discover_streams
-from tap_doubleclick_campaign_managers.reports import sync_reports
+from tap_doubleclick_campaign_manager.discover import discover_streams
+from tap_doubleclick_campaign_manager.reports import sync_reports
 
 LOGGER = singer.get_logger()
 
