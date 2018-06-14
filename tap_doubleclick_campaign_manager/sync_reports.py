@@ -63,8 +63,14 @@ def transform_field(dfa_type, value):
         return float(value)
     if dfa_type == 'long':
         return int(value)
-    if dfa_type == 'boolean': ## TODO: verify this
-        return value.lower() == 'true'
+    if dfa_type == 'boolean':
+        value = value.lower().strip()
+        return (
+            value == 'true' or
+            value == 't' or
+            value == 'yes' or
+            value == 'y'
+        )
     return value
 
 def process_file(service, fieldmap, report_config, file_id, report_time):
@@ -115,7 +121,7 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
     with singer.metrics.record_counter(stream_name) as counter:
         counter.increment(line_state['count'])
 
-def sync_report(service, field_type_lookup, state, profile_id, report_config):
+def sync_report(service, field_type_lookup, profile_id, report_config):
     report_id = report_config['report_id']
     stream_name = report_config['stream_name']
 
@@ -190,12 +196,34 @@ def sync_report(service, field_type_lookup, state, profile_id, report_config):
 def sync_reports(service, config, state):
     profile_id = config.get('profile_id')
     reports = config.get('reports')
+    raw_reports = config.get('raw_reports')
+
+    # if report selection changes, we want to start over
+    if 'raw_reports' not in state or raw_reports != state['raw_reports']:
+        state['current_report'] = None
+        state['raw_reports'] = raw_reports
 
     field_type_lookup = get_field_type_lookup()
 
+    current_report = state.get('current_report')
+    past_current_report = False
     for report_config in reports:
+        report_id = report_config['report_id']
+
+        if current_report is not None and \
+           not past_current_report and \
+           current_report != report_id:
+            continue
+
+        past_current_report = True
+        state['current_report'] = report_id
+        singer.write_state(state)
+
         sync_report(service,
                     field_type_lookup,
-                    state,
                     profile_id,
                     report_config)
+
+    state['raw_reports'] = None
+    state['current_report'] = None
+    singer.write_state(state)

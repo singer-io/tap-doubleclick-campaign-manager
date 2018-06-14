@@ -56,6 +56,7 @@ def do_sync(service, config, catalog, state):
 
 def parse_report_configs(config):
     # parse reports config "14245231,my_campaign_report;5342392,my_floodlight_report"
+    config['raw_reports'] = config['reports']
     raw_report_configs = config['reports'].split(';')
     reports = []
     for raw_report_config in raw_report_configs:
