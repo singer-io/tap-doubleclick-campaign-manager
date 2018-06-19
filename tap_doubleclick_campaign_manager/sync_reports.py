@@ -140,7 +140,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
     singer.write_schema(stream_name, schema, [])
 
     with singer.metrics.job_timer('run_report'):
-        report_time = datetime.utcnow().isoformat()
+        report_time = datetime.utcnow().isoformat() + 'Z'
         report_file = (
             service
             .reports()
