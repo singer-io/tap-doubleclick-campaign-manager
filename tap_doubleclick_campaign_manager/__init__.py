@@ -49,30 +49,15 @@ def stream_is_selected(mdata):
     return mdata.get((), {}).get('selected', False)
 
 def do_sync(service, config, catalog, state):
-    sync_reports(service, config, state)
+    sync_reports(service, config, catalog, state)
 
     singer.write_state(state)
     LOGGER.info("Finished sync")
-
-def parse_report_configs(config):
-    # parse reports config "14245231,my_campaign_report;5342392,my_floodlight_report"
-    config['raw_reports'] = config['reports']
-    raw_report_configs = config['reports'].split(';')
-    reports = []
-    for raw_report_config in raw_report_configs:
-        raw_report_config_fields = raw_report_config.split(',')
-        reports.append({
-            'report_id': raw_report_config_fields[0],
-            'stream_name': raw_report_config_fields[1]
-        })
-    config['reports'] = reports
 
 @singer.utils.handle_top_exception(LOGGER)
 def main():
     parsed_args = singer.utils.parse_args(REQUIRED_CONFIG_KEYS)
     config = parsed_args.config
-
-    parse_report_configs(config)
 
     service = get_service(config)
 

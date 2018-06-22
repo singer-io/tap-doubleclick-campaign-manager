@@ -193,15 +193,24 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
                         sleep))
             time.sleep(sleep)
 
-def sync_reports(service, config, state):
+def sync_reports(service, config, catalog, state):
     profile_id = config.get('profile_id')
-    reports = config.get('reports')
-    raw_reports = config.get('raw_reports')
+
+    reports = []
+    for stream in catalog.streams:
+        mdata = singer.metadata.to_map(stream.metadata)
+        root_metadata = mdata[()]
+        if root_metadata.get('selected') is True:
+            reports.append({
+                'report_id': root_metadata['tap-doubleclick-campaign-manager.report-id'],
+                'stream_name': stream.tap_stream_id
+            })
+    reports = sorted(reports, key=lambda x: x['report_id'])
 
     # if report selection changes, we want to start over
-    if 'raw_reports' not in state or raw_reports != state['raw_reports']:
+    if state.get('reports') != reports:
         state['current_report'] = None
-        state['raw_reports'] = raw_reports
+        state['reports'] = reports
 
     field_type_lookup = get_field_type_lookup()
 
@@ -224,6 +233,6 @@ def sync_reports(service, config, state):
                     profile_id,
                     report_config)
 
-    state['raw_reports'] = None
+    state['reports'] = None
     state['current_report'] = None
     singer.write_state(state)
