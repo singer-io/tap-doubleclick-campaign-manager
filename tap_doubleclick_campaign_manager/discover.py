@@ -14,10 +14,10 @@ def sanitize_name(report_name):
     return re.sub(r'[^a-z0-9_]', '', report_name)
 
 def handle_duplicate(report_configs, stream_name, number=1):
-    new_stream_name = stream_name + '_' + number
-    if number == 1 and stream_name in report_config:
-        report_config[new_stream_name] = report_config[stream_name]
-        del report_config[stream_name]
+    new_stream_name = stream_name + '_' + str(number)
+    if number == 1 and stream_name in report_configs:
+        report_configs[new_stream_name] = report_configs[stream_name]
+        del report_configs[stream_name]
     elif new_stream_name not in report_configs:
         return new_stream_name
     return handle_duplicate(report_configs, stream_name, number=number + 1)
