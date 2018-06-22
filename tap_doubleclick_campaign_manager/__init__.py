@@ -19,8 +19,7 @@ REQUIRED_CONFIG_KEYS = [
     "client_id",
     "client_secret",
     "refresh_token",
-    "profile_id",
-    "reports"
+    "profile_id"
 ]
 
 def get_service(config):
