@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tap-doubleclick-campaign-manager",
-    version="0.2.0",
+    version="0.2.1",
     description="Singer.io tap for extracting data from the DoubleClick for Campaign Managers API",
     author="Stitch",
     url="http://singer.io",
@@ -20,5 +20,6 @@ setup(
     [console_scripts]
     tap-doubleclick-campaign-manager=tap_doubleclick_campaign_manager:main
     """,
-    packages=find_packages()
+    packages=find_packages(),
+    include_package_data=True
 )
