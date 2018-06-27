@@ -2,6 +2,7 @@ import os
 import json
 
 SINGER_REPORT_FIELD = '_sdc_report_time'
+REPORT_ID_FIELD = '_sdc_report_id'
 
 def get_field_type_lookup():
     path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
@@ -50,6 +51,10 @@ def get_schema(stream_name, fieldmap):
     properties[SINGER_REPORT_FIELD] = {
         'type': 'string',
         'format': 'date-time'
+    }
+
+    properties[REPORT_ID_FIELD] = {
+        'type': 'integer'
     }
 
     for field in fieldmap:

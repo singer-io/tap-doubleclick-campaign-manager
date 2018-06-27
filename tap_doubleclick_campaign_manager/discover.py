@@ -13,15 +13,6 @@ def sanitize_name(report_name):
     report_name = re.sub(r'[\s\-\/]', '_', report_name.lower())
     return re.sub(r'[^a-z0-9_]', '', report_name)
 
-def handle_duplicate(report_configs, stream_name, number=1):
-    new_stream_name = stream_name + '_' + str(number)
-    if number == 1 and stream_name in report_configs:
-        report_configs[new_stream_name] = report_configs[stream_name]
-        del report_configs[stream_name]
-    elif new_stream_name not in report_configs:
-        return new_stream_name
-    return handle_duplicate(report_configs, stream_name, number=number + 1)
-
 def discover_streams(service, config):
     profile_id = config.get('profile_id')
 
@@ -37,8 +28,6 @@ def discover_streams(service, config):
     report_configs = {}
     for report in reports:
         stream_name = sanitize_name(report['name'])
-        if stream_name in report_configs:
-            stream_name = handle_duplicate(report_configs, stream_name)
         report_configs[stream_name] = report
 
     field_type_lookup = get_field_type_lookup()
@@ -67,7 +56,8 @@ def discover_streams(service, config):
 
         catalog.streams.append(CatalogEntry(
             stream=stream_name,
-            tap_stream_id=stream_name,
+            stream_alias=stream_name,
+            tap_stream_id='{}_{}'.format(stream_name, report['id']),
             key_properties=[],
             schema=schema,
             metadata=metadata
