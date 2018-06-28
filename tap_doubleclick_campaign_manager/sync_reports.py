@@ -127,6 +127,7 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
 def sync_report(service, field_type_lookup, profile_id, report_config):
     report_id = report_config['report_id']
     stream_name = report_config['stream_name']
+    stream_alias = report_config['stream_alias']
 
     LOGGER.info("%s: Starting sync", stream_name)
 
@@ -140,7 +141,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
 
     fieldmap = get_fields(field_type_lookup, report)
     schema = get_schema(stream_name, fieldmap)
-    singer.write_schema(stream_name, schema, [])
+    singer.write_schema(stream_name, schema, [], stream_alias=stream_alias)
 
     with singer.metrics.job_timer('run_report'):
         report_time = datetime.utcnow().isoformat() + 'Z'
