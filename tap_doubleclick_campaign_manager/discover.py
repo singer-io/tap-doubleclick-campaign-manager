@@ -28,12 +28,13 @@ def discover_streams(service, config):
     report_configs = {}
     for report in reports:
         stream_name = sanitize_name(report['name'])
-        report_configs[stream_name] = report
+        tap_stream_id = '{}_{}'.format(stream_name, report['id'])
+        report_configs[(stream_name, tap_stream_id)] = report
 
     field_type_lookup = get_field_type_lookup()
     catalog = Catalog([])
 
-    for stream_name, report in report_configs.items():
+    for (stream_name, tap_stream_id), report in report_configs.items():
         fieldmap = get_fields(field_type_lookup, report)
         schema_dict = get_schema(stream_name, fieldmap)
         schema = Schema.from_dict(schema_dict)
@@ -57,7 +58,7 @@ def discover_streams(service, config):
         catalog.streams.append(CatalogEntry(
             stream=stream_name,
             stream_alias=stream_name,
-            tap_stream_id='{}_{}'.format(stream_name, report['id']),
+            tap_stream_id=tap_stream_id,
             key_properties=[],
             schema=schema,
             metadata=metadata
