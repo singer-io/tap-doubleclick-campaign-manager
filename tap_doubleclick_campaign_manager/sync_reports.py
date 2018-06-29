@@ -87,6 +87,8 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
         'count': 0
     }
 
+    report_id_int = int(report_id)
+
     def test_transform(line):
         if not line_state['past_headers'] and not line_state['headers_line'] and line == 'Report Fields':
             line_state['headers_line'] = True
@@ -108,7 +110,7 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
                 obj[field['name']] = transform_field(field['type'], row[i])
 
             obj[SINGER_REPORT_FIELD] = report_time
-            obj[REPORT_ID_FIELD] = report_id
+            obj[REPORT_ID_FIELD] = report_id_int
 
             singer.write_record(stream_name, obj, stream_alias=stream_alias)
             line_state['count'] += 1
