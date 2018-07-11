@@ -63,7 +63,10 @@ def transform_field(dfa_type, value):
     if dfa_type == 'double':
         return float(value)
     if dfa_type == 'long':
-        return int(value)
+        try:
+            return int(value)
+        except:
+            return None
     if dfa_type == 'boolean':
         value = value.lower().strip()
         return (
