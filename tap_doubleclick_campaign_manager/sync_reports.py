@@ -20,7 +20,7 @@ LOGGER = singer.get_logger()
 
 MIN_RETRY_INTERVAL = 2 # 10 seconds
 MAX_RETRY_INTERVAL = 300 # 5 minutes
-MAX_RETRY_ELAPSED_TIME = 1800 # 30 minutes
+MAX_RETRY_ELAPSED_TIME = 3600 # 1 hour
 CHUNK_SIZE = 16 * 1024 * 1024 # 16 MB
 
 class StreamFunc(object):
