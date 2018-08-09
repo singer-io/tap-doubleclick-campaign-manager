@@ -10,6 +10,13 @@ def get_field_type_lookup():
     with open(path) as file:
         return json.load(file)
 
+def report_dimension_fn(dimension):
+    if isinstance(dimension, str):
+        return dimension
+    elif isinstance(dimension, dict):
+        return dimension['name']
+    raise Exception('Could not determine report dimensions')
+
 def get_fields(field_type_lookup, report):
     report_type = report['type']
     if report_type == 'STANDARD':
@@ -26,14 +33,19 @@ def get_fields(field_type_lookup, report):
         metric_names = criteria_obj['metricNames'] + criteria_obj['overlapMetricNames']
     elif report_type == 'PATH_TO_CONVERSION':
         criteria_obj = report['pathToConversionCriteria']
-        dimensions = criteria_obj['conversionDimensions'] + criteria_obj['customFloodlightVariables']
-        metric_names = criteria_obj['metricNames'] + criteria_obj['perInteractionDimensions']
+        dimensions = (
+            criteria_obj['conversionDimensions'] +
+            criteria_obj['perInteractionDimensions'] +
+            criteria_obj['customFloodlightVariables']
+        )
+        metric_names = criteria_obj['metricNames']
     elif report_type == 'REACH':
         criteria_obj = report['reachCriteria']
         dimensions = criteria_obj['dimensions']
         metric_names = criteria_obj['metricNames'] + criteria_obj['reachByFrequencyMetricNames']
 
-    dimensions = list(map(lambda x: x['name'], dimensions))
+    dimensions = list(map(report_dimension_fn, dimensions))
+    metric_names = list(map(report_dimension_fn, metric_names))
     columns = dimensions + metric_names
 
     fieldmap = []
