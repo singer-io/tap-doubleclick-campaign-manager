@@ -92,7 +92,7 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
 
     report_id_int = int(report_id)
 
-    def test_transform(line):
+    def line_transform(line):
         if not line_state['past_headers'] and not line_state['headers_line'] and line == 'Report Fields':
             line_state['headers_line'] = True
             return
@@ -118,7 +118,7 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
             singer.write_record(stream_name, obj, stream_alias=stream_alias)
             line_state['count'] += 1
     
-    stream = StreamFunc(test_transform)
+    stream = StreamFunc(line_transform)
     downloader = http.MediaIoBaseDownload(stream,
                                           request,
                                           chunksize=CHUNK_SIZE)
