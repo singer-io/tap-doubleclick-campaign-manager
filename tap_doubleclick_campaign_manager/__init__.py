@@ -36,7 +36,7 @@ def get_service(config):
     user_agent = config.get('user_agent')
     if user_agent:
         http = set_user_agent(http, user_agent)
-    return discovery.build('dfareporting', 'v3.3', http=http, cache_discovery=False)
+    return discovery.build('dfareporting', 'v3.4', http=http, cache_discovery=False)
 
 def do_discover(service, config):
     LOGGER.info("Starting discover")
