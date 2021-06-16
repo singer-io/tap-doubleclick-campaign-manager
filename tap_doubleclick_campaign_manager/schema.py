@@ -57,6 +57,31 @@ def get_fields(field_type_lookup, report):
 
     return fieldmap
 
+def convert_to_json_schema_type(non_json_type):
+
+    if non_json_type == 'long':
+        return 'integer'
+
+    if non_json_type == 'double':
+        return 'number'
+
+    return non_json_type
+
+
+def convert_to_json_schema_types(non_json_types):
+
+    if isinstance(non_json_types, str):
+        return [convert_to_json_schema_type(non_json_types)]
+
+    json_types = []
+    for non_json_type in non_json_types:
+        json_types.append(
+            convert_to_json_schema_type(non_json_type)
+        )
+
+    return json_types
+
+
 def get_schema(stream_name, fieldmap):
     properties = {}
 
@@ -71,12 +96,11 @@ def get_schema(stream_name, fieldmap):
 
     for field in fieldmap:
         _type = field['type']
-        if _type == 'long':
-            _type = 'integer'
-        elif _type == 'double':
-            _type = 'number'
+
+        _type = convert_to_json_schema_types(_type)
+
         properties[field['name']] = {
-            'type': ['null', _type]
+            'type': ['null'] + _type
         }
 
     schema = {
