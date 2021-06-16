@@ -79,7 +79,7 @@ def transform_field(dfa_type, value):
     if isinstance(dfa_type, list):
         for t in dfa_type:
             try:
-                return transform_field(dfa_type[0], value)
+                return transform_field(t, value)
             except ValueError as error:
                 LOGGER.warning(f'Failed parse field as {t}')
                 continue
