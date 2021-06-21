@@ -16,7 +16,7 @@ setup(
         "google-api-python-client",
         "oauth2client==4.1.2"
     ],
-    extra_requires={
+    extras_require={
         "dev": [
             "beautifulsoup4==4.9.3",
             "bs4==0.0.1",
