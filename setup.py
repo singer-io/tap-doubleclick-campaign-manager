@@ -21,6 +21,7 @@ setup(
             "beautifulsoup4==4.9.3",
             "bs4==0.0.1",
             "soupsieve==2.2.1",
+            "pytest==6.2.4",
         ],
     },
     entry_points="""
