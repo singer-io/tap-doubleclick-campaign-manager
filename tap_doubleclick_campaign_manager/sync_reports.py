@@ -75,6 +75,15 @@ def transform_field(dfa_type, value):
             value == 'yes' or
             value == 'y'
         )
+
+    if isinstance(dfa_type, list):
+        for t in dfa_type:
+            try:
+                return transform_field(t, value)
+            except ValueError as error:
+                LOGGER.warning(f'Failed parse field as {t}')
+                continue
+
     return value
 
 def process_file(service, fieldmap, report_config, file_id, report_time):

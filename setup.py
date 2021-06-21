@@ -16,6 +16,14 @@ setup(
         "google-api-python-client",
         "oauth2client==4.1.2"
     ],
+    extras_require={
+        "dev": [
+            "beautifulsoup4==4.9.3",
+            "bs4==0.0.1",
+            "soupsieve==2.2.1",
+            "pytest==6.2.4",
+        ],
+    },
     entry_points="""
     [console_scripts]
     tap-doubleclick-campaign-manager=tap_doubleclick_campaign_manager:main

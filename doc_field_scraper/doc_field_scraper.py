@@ -5,7 +5,7 @@ import collections
 import requests
 from bs4 import BeautifulSoup
 
-FIELD_DOC_URL = 'https://developers.google.com/doubleclick-advertisers/v3.2/dimensions'
+FIELD_DOC_URL = 'https://developers.google.com/doubleclick-advertisers/v3.5/dimensions'
 
 FIELD_TABLES = [
     'standard-dimensions',
@@ -32,6 +32,7 @@ FIELD_TABLES = [
 ]
 
 def main():
+    print("Fetching " + FIELD_DOC_URL, file=sys.stderr)
     raw_html = requests.get(FIELD_DOC_URL).text
     soup = BeautifulSoup(raw_html, 'html.parser')
 
