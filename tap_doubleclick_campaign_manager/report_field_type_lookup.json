@@ -675,7 +675,7 @@
   "gmailViewThroughConversions": "long",
   "gmailViewThroughRevenue": "double",
   "impressionDeliveryStatus": "double",
-  "impressions": ["long", "string"]
+  "impressions": ["long", "string"],
   "inactiveImpressions": "long",
   "invalidActiveViewEligibleImpressions": "long",
   "invalidActiveViewMeasurableImpressions": "long",
