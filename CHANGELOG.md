@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.0
+  * Bump API version from 3.5 -> 4 [#23](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/23)
+
 ## 1.3.0
   * Bump API version from 3.3 -> 3.5 [#20](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/20)
 

@@ -18,8 +18,8 @@ class TestSchemaFunctions(unittest.TestCase):
         fake_report = {
             'type': 'STANDARD',
             'criteria': {
-                'dimensions': ['dfa:cookieReachTotalReach'],
-                'metricNames': ['dfa:clickCount']
+                'dimensions': ['cookieReachTotalReach'],
+                'metricNames': ['clickCount']
             }
         }
 
@@ -44,7 +44,7 @@ class TestSchemaFunctions(unittest.TestCase):
             'type': 'STANDARD',
             'criteria': {
                 'dimensions': ['some_dimension'],
-                'metricNames': ['dfa:some_metric']
+                'metricNames': ['some_metric']
             }
         }
 
@@ -68,11 +68,11 @@ class TestSchemaFunctions(unittest.TestCase):
         fake_report = {
             'type': 'STANDARD',
             'criteria': {
-                'dimensions': ['dfa:uniqueReachAverageImpressionFrequency',
-                               'dfa:uniqueReachClickReach',
-                               'dfa:uniqueReachImpressionReach',
-                               'dfa:conversionId (required)'],
-                'metricNames': ['dfa:uniqueReachTotalReach']
+                'dimensions': ['uniqueReachAverageImpressionFrequency',
+                               'uniqueReachClickReach',
+                               'uniqueReachImpressionReach',
+                               'conversionId (required)'],
+                'metricNames': ['uniqueReachTotalReach']
             }
         }
 
