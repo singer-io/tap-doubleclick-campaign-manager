@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.1
+  * Add queue time handling to method
+
 ## 1.4.0
   * Bump API version from 3.5 -> 4 [#23](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/23)
 
