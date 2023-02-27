@@ -5,7 +5,7 @@ import collections
 import requests
 from bs4 import BeautifulSoup
 
-FIELD_DOC_URL = 'https://developers.google.com/doubleclick-advertisers/v4/dimensions'
+FIELD_DOC_URL = 'https://developers.google.com/doubleclick-advertisers/v3.5/dimensions'
 
 FIELD_TABLES = [
     'standard-dimensions',

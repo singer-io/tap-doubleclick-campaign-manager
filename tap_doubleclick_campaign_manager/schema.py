@@ -51,7 +51,7 @@ def get_fields(field_type_lookup, report):
     fieldmap = []
     for column in columns:
         fieldmap.append({
-            'name': column,
+            'name': column.replace('dfa:', ''),
             'type': field_type_lookup.get(column, 'string')
         })
 
