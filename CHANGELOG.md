@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.1
+  * Explicitly tolerate file status of 'QUEUED' [#27](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/27)
+
 ## 1.4.0
   * Bump API version from 3.5 -> 4 [#23](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/23)
 

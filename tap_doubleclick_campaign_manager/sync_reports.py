@@ -126,7 +126,7 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
 
             singer.write_record(stream_name, obj, stream_alias=stream_alias)
             line_state['count'] += 1
-    
+
     stream = StreamFunc(line_transform)
     downloader = http.MediaIoBaseDownload(stream,
                                           request,
@@ -181,9 +181,24 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
             )
 
             status = report_file['status']
-            if status == 'REPORT_AVAILABLE':
+
+            if status == 'QUEUED':
+                sleep = next_sleep_interval(sleep)
+                LOGGER.info('{}: report_id {} / file_id {} - File status is {}, sleeping for {} seconds'.format(
+                    stream_name,
+                    report_id,
+                    report_file_id,
+                    status,
+                    sleep))
+                time.sleep(sleep)
+
+            elif status == 'REPORT_AVAILABLE':
+                LOGGER.info('Report file {} had status of {}; beginning file processing.'.format(
+                    report_file_id,
+                    status))
                 process_file(service, fieldmap, report_config, report_file_id, report_time)
                 break
+
             elif status != 'PROCESSING':
                 message = '{}: report_id {} / file_id {} - File status is {}, processing failed'.format(
                         stream_name,
@@ -192,6 +207,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
                         status)
                 LOGGER.error(message)
                 raise Exception(message)
+
             elif time.time() - start_time > MAX_RETRY_ELAPSED_TIME:
                 message = '{}: report_id {} / file_id {} - File processing deadline exceeded ({} secs)'.format(
                         stream_name,
@@ -202,14 +218,6 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
                 LOGGER.error(message)
                 raise Exception(message)
 
-            sleep = next_sleep_interval(sleep)
-            LOGGER.info('{}: report_id {} / file_id {} - File status is {}, sleeping for {} seconds'.format(
-                        stream_name,
-                        report_id,
-                        report_file_id,
-                        status,
-                        sleep))
-            time.sleep(sleep)
 
 def sync_reports(service, config, catalog, state):
     profile_id = config.get('profile_id')
