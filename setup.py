@@ -11,17 +11,17 @@ setup(
     classifiers=["Programming Language :: Python :: 3 :: Only"],
     py_modules=["tap_doubleclick_campaign_manager"],
     install_requires=[
-        "singer-python>=5.1.1",
-        "pendulum",
-        "google-api-python-client",
-        "oauth2client==4.1.2"
+        "singer-python==6.1.1",
+        "pendulum==3.1.0",
+        "google-api-python-client==2.172.0",
+        "oauth2client==4.1.3"
     ],
     extras_require={
         "dev": [
-            "beautifulsoup4==4.9.3",
-            "bs4==0.0.1",
-            "soupsieve==2.2.1",
-            "pytest==6.2.4",
+            "beautifulsoup4==4.13.4",
+            "bs4==0.0.2",
+            "soupsieve==2.7",
+            "pytest==8.4.1"
         ],
     },
     entry_points="""
