@@ -4,6 +4,8 @@ import csv
 import time
 import random
 from datetime import datetime
+import json
+from googleapiclient.errors import HttpError
 
 import singer
 from googleapiclient import http
@@ -138,6 +140,32 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
     with singer.metrics.record_counter(stream_name) as counter:
         counter.increment(line_state['count'])
 
+def fetch_report(service, profile_id, report_id):
+    try:
+        return (
+            service
+            .reports()
+            .run(profileId=profile_id, reportId=report_id)
+            .execute()
+        )
+    except HttpError as e:
+        status = e.resp.status
+        raw = e.content.decode("utf-8", errors="ignore")
+
+        try:
+            body = json.loads(raw)
+            msg = body.get("error", {}) \
+                      .get("errors", [{}])[0] \
+                      .get("message", body.get("error", {}).get("message", raw))
+        except Exception:
+            msg = raw
+
+        LOGGER.error(
+            "Failed to fetch report %s for profile %s: HTTP %s – %s",
+            report_id, profile_id, status, msg
+        )
+        raise
+
 def sync_report(service, field_type_lookup, profile_id, report_config):
     report_id = report_config['report_id']
     stream_name = report_config['stream_name']
@@ -159,14 +187,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
 
     with singer.metrics.job_timer('run_report'):
         report_time = datetime.utcnow().isoformat() + 'Z'
-        report_file = (
-            service
-            .reports()
-            .run(profileId=profile_id,
-                 reportId=report_id)
-            .execute()
-        )
-
+        report_file = fetch_report(service, profile_id, report_id)
         report_file_id = report_file['id']
 
         sleep = 0
