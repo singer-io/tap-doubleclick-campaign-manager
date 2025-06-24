@@ -2,6 +2,7 @@ import re
 
 from singer.catalog import Catalog, CatalogEntry, Schema
 
+from tap_doubleclick_campaign_manager import execute_with_retries
 from tap_doubleclick_campaign_manager.schema import (
     SINGER_REPORT_FIELD,
     get_fields,
@@ -16,12 +17,12 @@ def sanitize_name(report_name):
 def discover_streams(service, config):
     profile_id = config.get('profile_id')
 
-    reports = (
-        service
-        .reports()
-        .list(profileId=profile_id)
-        .execute()
-        .get('items')
+    reports = execute_with_retries(
+        lambda: service
+            .reports()
+            .list(profileId=profile_id)
+            .execute()
+            .get("items")
     )
 
     reports = sorted(reports, key=lambda x: x['id'])

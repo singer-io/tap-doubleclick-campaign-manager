@@ -10,6 +10,7 @@ from googleapiclient.errors import HttpError
 import singer
 from googleapiclient import http
 
+from tap_doubleclick_campaign_manager import execute_with_retries
 from tap_doubleclick_campaign_manager.schema import (
     SINGER_REPORT_FIELD,
     REPORT_ID_FIELD,
@@ -173,12 +174,12 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
 
     LOGGER.info("%s: Starting sync", stream_name)
 
-    report = (
-        service
-        .reports()
-        .get(profileId=profile_id,
-             reportId=report_id)
-        .execute()
+    report = execute_with_retries(
+        lambda: service
+            .reports()
+            .get(profileId=profile_id,
+                 reportId=report_id)
+            .execute()
     )
 
     fieldmap = get_fields(field_type_lookup, report)
@@ -193,12 +194,12 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
         sleep = 0
         start_time = time.time()
         while True:
-            report_file = (
-                service
-                .files()
-                .get(reportId=report_id,
-                     fileId=report_file_id)
-                .execute()
+            report_file = execute_with_retries(
+                lambda: service
+                    .files()
+                    .get(reportId=report_id,
+                         fileId=report_file_id)
+                    .execute()
             )
 
             status = report_file['status']
