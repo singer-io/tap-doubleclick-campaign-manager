@@ -141,7 +141,6 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
     with singer.metrics.record_counter(stream_name) as counter:
         counter.increment(line_state['count'])
 
-
 def sync_report(service, field_type_lookup, profile_id, report_config):
     report_id = report_config['report_id']
     stream_name = report_config['stream_name']
@@ -171,6 +170,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
                      reportId=report_id)
                 .execute()
         )
+
         report_file_id = report_file['id']
 
         sleep = 0
