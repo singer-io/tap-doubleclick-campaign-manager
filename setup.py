@@ -14,7 +14,6 @@ setup(
         "singer-python==6.1.1",
         "google-api-python-client==2.172.0",
         "oauth2client==4.1.3",
-<<<<<<< HEAD
         "backoff==2.2.1",
     ],
     extras_require={
