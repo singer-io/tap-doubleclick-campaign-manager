@@ -20,6 +20,7 @@ setup(
         "dev": [
             "beautifulsoup4==4.13.4",
             "pytest==8.4.1",
+            "parameterized==0.9.0",
         ],
     },
     entry_points="""
