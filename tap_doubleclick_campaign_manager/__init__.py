@@ -34,7 +34,6 @@ def execute_with_retries(func):
     """
       • 400: parse & log message, return None
       • 5xx: exponential backoff via decorator
-      • other: bubble up
     """
     @backoff.on_exception(
         backoff.expo,
