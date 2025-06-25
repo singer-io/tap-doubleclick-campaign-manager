@@ -22,9 +22,9 @@ class DoubleclickCampaignManagerClient:
 
     def make_request(self, func):
         """
-        • 400: parse & log message, return None
-        • 429: constant backoff
-        • 5xx: exponential backoff
+        400: parse & log message
+        429: constant backoff
+        5xx: exponential backoff
         """
         @backoff.on_exception(
             backoff.constant,
