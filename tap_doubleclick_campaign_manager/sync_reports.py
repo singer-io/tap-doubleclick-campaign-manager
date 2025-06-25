@@ -10,7 +10,7 @@ from googleapiclient.errors import HttpError
 import singer
 from googleapiclient import http
 
-from tap_doubleclick_campaign_manager import execute_with_retries
+from tap_doubleclick_campaign_manager.client import DoubleclickCampaignManagerClient
 from tap_doubleclick_campaign_manager.schema import (
     SINGER_REPORT_FIELD,
     REPORT_ID_FIELD,
@@ -19,6 +19,7 @@ from tap_doubleclick_campaign_manager.schema import (
     get_field_type_lookup
 )
 
+CLIENT = DoubleclickCampaignManagerClient()
 LOGGER = singer.get_logger()
 
 MIN_RETRY_INTERVAL = 2 # 10 seconds
@@ -148,7 +149,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
 
     LOGGER.info("%s: Starting sync", stream_name)
 
-    report = execute_with_retries(
+    report = CLIENT.make_request(
         lambda: service
             .reports()
             .get(profileId=profile_id,
@@ -162,7 +163,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
 
     with singer.metrics.job_timer('run_report'):
         report_time = datetime.utcnow().isoformat() + 'Z'
-        report_file = execute_with_retries(
+        report_file = CLIENT.make_request(
             lambda: service
                 service
                 .reports()
@@ -176,7 +177,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
         sleep = 0
         start_time = time.time()
         while True:
-            report_file = execute_with_retries(
+            report_file = CLIENT.make_request(
                 lambda: service
                     .files()
                     .get(reportId=report_id,
