@@ -165,7 +165,6 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
         report_time = datetime.utcnow().isoformat() + 'Z'
         report_file = CLIENT.make_request(
             lambda: service
-                service
                 .reports()
                 .run(profileId=profile_id,
                      reportId=report_id)
