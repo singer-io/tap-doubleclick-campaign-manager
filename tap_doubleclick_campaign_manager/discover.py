@@ -22,7 +22,7 @@ def discover_streams(service, config):
             .reports()
             .list(profileId=profile_id)
             .execute()
-            .get("items")
+            .get('items')
     )
 
     reports = sorted(reports, key=lambda x: x['id'])
