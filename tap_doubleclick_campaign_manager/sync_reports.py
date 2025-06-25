@@ -4,8 +4,6 @@ import csv
 import time
 import random
 from datetime import datetime
-import json
-from googleapiclient.errors import HttpError
 
 import singer
 from googleapiclient import http

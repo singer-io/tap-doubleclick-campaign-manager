@@ -3,7 +3,6 @@
 import json
 import sys
 
-import backoff
 import httplib2
 import singer
 from singer import metadata
@@ -16,14 +15,12 @@ from tap_doubleclick_campaign_manager.sync_reports import sync_reports
 
 LOGGER = singer.get_logger()
 
-
 REQUIRED_CONFIG_KEYS = [
     "client_id",
     "client_secret",
     "refresh_token",
     "profile_id"
 ]
-
 
 def get_service(config):
     credentials = client.OAuth2Credentials(
