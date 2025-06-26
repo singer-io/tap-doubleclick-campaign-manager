@@ -65,17 +65,40 @@ class TestDoubleclickCampaignManagerClient(unittest.TestCase):
     @parameterized.expand(
         [
             ("rate_limit_retry", 429, dcm.Server429Error),
+        ]
+    )
+    @patch("time.sleep", return_value=None)
+    def test_backoff_max_retries_then_raises_for_429_error(
+        self, name, status_code, expected_exception, mock_sleep
+    ):
+        """
+        Test that make_request retries up to max_tries and then raises the expected exception
+        for 429 (rate limit) status codes.
+        """
+        calls = {"count": 0}
+
+        def func():
+            calls["count"] += 1
+            raise self.make_http_error(status_code, b"{}")
+
+        with self.assertRaises(expected_exception):
+            self.client.make_request(func)
+
+        self.assertEqual(calls["count"], 2)
+
+    @parameterized.expand(
+        [
             ("server_error_retry_500", 500, dcm.Server5xxError),
             ("server_error_retry_503", 503, dcm.Server5xxError),
         ]
     )
     @patch("time.sleep", return_value=None)
-    def test_backoff_max_retries_then_raises(
+    def test_backoff_max_retries_then_raises_for_5xx_errors(
         self, name, status_code, expected_exception, mock_sleep
     ):
         """
         Test that make_request retries up to max_tries and then raises the expected exception
-        for 429 (rate limit) and 5xx (server error) status codes.
+        for 5xx (server error) status codes.
         """
         calls = {"count": 0}
 
