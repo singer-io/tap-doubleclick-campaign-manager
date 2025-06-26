@@ -14,7 +14,7 @@ jobs:
             python3 -m venv /usr/local/share/virtualenvs/tap-doubleclick-campaign-manager
             source /usr/local/share/virtualenvs/tap-doubleclick-campaign-manager/bin/activate
             pip install -U pip setuptools
-            pip install .[dev]
+            pip install .[dev,test]
       - run:
           when: always
           name: 'Unit Tests'
