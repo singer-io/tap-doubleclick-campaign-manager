@@ -24,7 +24,7 @@ class DoubleclickCampaignManagerClient:
         backoff.constant,
         Server429Error,
         interval=60,  # Reference: https://developers.google.com/doubleclick-advertisers/quotas#quota_limits
-        max_tries=5,
+        max_tries=2,
     )
     @backoff.on_exception(
         backoff.expo,

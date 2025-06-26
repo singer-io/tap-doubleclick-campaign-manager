@@ -19,8 +19,6 @@ setup(
     extras_require={
         "dev": [
             "beautifulsoup4==4.13.4",
-        ],
-        "test": [
             "pytest==8.4.1",
             "parameterized==0.9.0",
         ],
