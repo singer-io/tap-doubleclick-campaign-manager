@@ -8,6 +8,7 @@ from datetime import datetime
 import singer
 from googleapiclient import http
 
+from tap_doubleclick_campaign_manager.client import DoubleclickCampaignManagerClient as CLIENT
 from tap_doubleclick_campaign_manager.schema import (
     SINGER_REPORT_FIELD,
     REPORT_ID_FIELD,
@@ -145,12 +146,12 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
 
     LOGGER.info("%s: Starting sync", stream_name)
 
-    report = (
-        service
-        .reports()
-        .get(profileId=profile_id,
-             reportId=report_id)
-        .execute()
+    report = CLIENT().make_request(
+        lambda: service
+            .reports()
+            .get(profileId=profile_id,
+                 reportId=report_id)
+            .execute()
     )
 
     fieldmap = get_fields(field_type_lookup, report)
@@ -159,12 +160,12 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
 
     with singer.metrics.job_timer('run_report'):
         report_time = datetime.utcnow().isoformat() + 'Z'
-        report_file = (
-            service
-            .reports()
-            .run(profileId=profile_id,
-                 reportId=report_id)
-            .execute()
+        report_file = CLIENT().make_request(
+            lambda: service
+                .reports()
+                .run(profileId=profile_id,
+                     reportId=report_id)
+                .execute()
         )
 
         report_file_id = report_file['id']
@@ -172,12 +173,12 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
         sleep = 0
         start_time = time.time()
         while True:
-            report_file = (
-                service
-                .files()
-                .get(reportId=report_id,
-                     fileId=report_file_id)
-                .execute()
+            report_file = CLIENT().make_request(
+                lambda: service
+                    .files()
+                    .get(reportId=report_id,
+                         fileId=report_file_id)
+                    .execute()
             )
 
             status = report_file['status']
