@@ -44,8 +44,7 @@ def get_service(config):
     except Exception as e:
         LOGGER.error(f"Warning: failed to refresh credentials: {e}")
 
-    http = httplib2.Http()
-    authed_http = AuthorizedHttp(creds, http=http)
+    authed_http = AuthorizedHttp(creds, http=httplib2.Http())
 
     if 'user_agent' in config and config['user_agent']:
         authed_http = set_user_agent(authed_http, config['user_agent'])
