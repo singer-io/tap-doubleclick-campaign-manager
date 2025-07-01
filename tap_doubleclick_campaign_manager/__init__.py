@@ -25,7 +25,7 @@ REQUIRED_CONFIG_KEYS = [
 ]
 
 GOOGLE_TOKEN_URI = 'https://oauth2.googleapis.com/token'
-GOOGLE_REVOKE_URI = 'https://oauth2.googleapis.com/revoke'
+
 
 def get_service(config):
     """
