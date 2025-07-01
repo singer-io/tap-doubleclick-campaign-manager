@@ -8,7 +8,9 @@ import singer
 from singer import metadata
 from googleapiclient import discovery
 from googleapiclient.http import set_user_agent
-from oauth2client import client, GOOGLE_TOKEN_URI, GOOGLE_REVOKE_URI
+from google.oauth2.credentials import Credentials
+from google.auth.transport.requests import Request
+from google_auth_httplib2 import AuthorizedHttp
 
 from tap_doubleclick_campaign_manager.discover import discover_streams
 from tap_doubleclick_campaign_manager.sync_reports import sync_reports
@@ -22,21 +24,39 @@ REQUIRED_CONFIG_KEYS = [
     "profile_id"
 ]
 
+GOOGLE_TOKEN_URI = 'https://oauth2.googleapis.com/token'
+GOOGLE_REVOKE_URI = 'https://oauth2.googleapis.com/revoke'
+
 def get_service(config):
-    credentials = client.OAuth2Credentials(
-        None,
-        config.get('client_id'),
-        config.get('client_secret'),
-        config.get('refresh_token'),
-        None,
-        GOOGLE_TOKEN_URI,
-        None,
-        revoke_uri=GOOGLE_REVOKE_URI)
-    http = credentials.authorize(httplib2.Http())
-    user_agent = config.get('user_agent')
-    if user_agent:
-        http = set_user_agent(http, user_agent)
-    return discovery.build('dfareporting', 'v4', http=http, cache_discovery=False)
+    """
+    Creates and returns a Campaign Manager 360 service object using google-auth.
+    """
+    creds = Credentials(
+        token=None,
+        refresh_token=config['refresh_token'],
+        token_uri=GOOGLE_TOKEN_URI,
+        client_id=config['client_id'],
+        client_secret=config['client_secret'],
+    )
+
+    try:
+        creds.refresh(Request())
+    except Exception as e:
+        LOGGER.error(f"Warning: failed to refresh credentials: {e}")
+
+    http = httplib2.Http()
+    authed_http = AuthorizedHttp(creds, http=http)
+
+    if 'user_agent' in config and config['user_agent']:
+        authed_http = set_user_agent(authed_http, config['user_agent'])
+
+    return discovery.build(
+        'dfareporting',
+        'v4',
+        http=authed_http,
+        cache_discovery=False
+    )
+
 
 def do_discover(service, config):
     LOGGER.info("Starting discover")
