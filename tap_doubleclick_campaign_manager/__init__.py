@@ -33,10 +33,10 @@ def get_service(config):
     """
     creds = Credentials(
         token=None,
-        refresh_token=config['refresh_token'],
+        refresh_token=config["refresh_token"],
         token_uri=GOOGLE_TOKEN_URI,
-        client_id=config['client_id'],
-        client_secret=config['client_secret'],
+        client_id=config["client_id"],
+        client_secret=config["client_secret"],
     )
 
     try:
@@ -47,12 +47,12 @@ def get_service(config):
 
     authed_http = AuthorizedHttp(creds, http=httplib2.Http())
 
-    if 'user_agent' in config and config['user_agent']:
-        authed_http = set_user_agent(authed_http, config['user_agent'])
+    if "user_agent" in config and config["user_agent"]:
+        authed_http = set_user_agent(authed_http, config["user_agent"])
 
     return discovery.build(
-        'dfareporting',
-        'v4',
+        "dfareporting",
+        "v4",
         http=authed_http,
         cache_discovery=False
     )
