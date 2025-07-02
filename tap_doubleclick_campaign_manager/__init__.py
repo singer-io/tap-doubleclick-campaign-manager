@@ -42,7 +42,7 @@ def get_service(config):
     try:
         creds.refresh(Request())
     except Exception as e:
-        LOGGER.error("Failed to refresh OAuth2 credentials; aborting.", exc_info=True)
+        LOGGER.error(f"Failed to refresh OAuth2 credentials; aborting. Exception: {e}")
         raise
 
     authed_http = AuthorizedHttp(creds, http=httplib2.Http())
