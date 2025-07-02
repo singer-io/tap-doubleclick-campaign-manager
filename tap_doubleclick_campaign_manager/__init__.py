@@ -24,7 +24,7 @@ REQUIRED_CONFIG_KEYS = [
     "profile_id"
 ]
 
-GOOGLE_TOKEN_URI = 'https://oauth2.googleapis.com/token'
+GOOGLE_TOKEN_URI = "https://oauth2.googleapis.com/token"
 
 
 def get_service(config):
