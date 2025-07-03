@@ -146,6 +146,8 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
 
     LOGGER.info("%s: Starting sync", stream_name)
 
+    # Using our centralized CLIENT wrapper for making requests
+    # handling retries, backoff and error logging
     report = CLIENT().make_request(
         lambda: service
             .reports()
