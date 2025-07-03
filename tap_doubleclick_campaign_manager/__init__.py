@@ -47,7 +47,7 @@ def get_service(config):
 
     authed_http = AuthorizedHttp(creds, http=httplib2.Http())
 
-    if "user_agent" in config and config["user_agent"]:
+    if config.get("user_agent"):
         authed_http = set_user_agent(authed_http, config["user_agent"])
 
     return discovery.build(
