@@ -66,18 +66,6 @@ def do_discover(service, config):
     LOGGER.info("Finished discover")
 
 
-def get_selected_streams(catalog):
-    """
-    Get selected streams by checking top-level metadata
-    """
-    selected_streams = []
-    for stream in catalog['streams']:
-        for entry in stream['metadata']:
-            if not entry['breadcrumb'] and entry['metadata'].get('selected'):
-                selected_streams.append(stream['tap_stream_id'])
-    return selected_streams
-
-
 def do_sync(service, config, catalog, state):
     selected_streams = [s.stream for s in catalog.get_selected_streams(state)]
     LOGGER.info(f"selected_streams: {selected_streams}")

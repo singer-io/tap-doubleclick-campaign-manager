@@ -88,7 +88,7 @@ def transform_field(dfa_type, value):
     return value
 
 
-def process_file(service, fieldmap, report_config, file_id, report_time,schema, mdata):
+def process_file(service, fieldmap, report_config, file_id, report_time, schema, mdata):
     report_id = report_config['report_id']
     stream_name = report_config['stream_name']
     stream_alias = report_config['stream_alias']
@@ -205,7 +205,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
                 LOGGER.info('Report file {} had status of {}; beginning file processing.'.format(
                     report_file_id,
                     status))
-                process_file(service, fieldmap, report_config, report_file_id, report_time,schema, mdata)
+                process_file(service, fieldmap, report_config, report_file_id, report_time, schema, mdata)
                 break
 
             elif status != 'PROCESSING':
@@ -229,7 +229,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
 
 
 
-def sync_reports(service, config, catalog, state, stream_name):
+def sync_reports(service, config, catalog, state):
     profile_id = config.get('profile_id')
 
     reports = []
@@ -267,12 +267,10 @@ def sync_reports(service, config, catalog, state, stream_name):
         state['current_report'] = report_id
         singer.write_state(state)
 
-        sync_report(
-            service,
-            field_type_lookup,
-            profile_id,
-            report_config,
-        )
+        sync_report(service,
+                    field_type_lookup,
+                    profile_id,
+                    report_config)
 
     state['reports'] = None
     state['current_report'] = None
