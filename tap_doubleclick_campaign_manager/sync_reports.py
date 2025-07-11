@@ -114,7 +114,7 @@ def process_file(service, fieldmap, report_config, file_id, report_time, schema,
 
         if line_state['past_headers']:
             row = parse_line(line)
-            # skip report grand total line
+            # skip report grant total line
             if row[0] == 'Grand Total:':
                 return
 
