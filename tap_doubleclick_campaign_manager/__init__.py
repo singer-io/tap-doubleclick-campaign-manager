@@ -64,11 +64,54 @@ def do_discover(service, config):
     json.dump(catalog, sys.stdout, indent=2)
     LOGGER.info("Finished discover")
 
-def stream_is_selected(mdata):
-    return mdata.get((), {}).get('selected', False)
+
+def get_selected_streams(catalog):
+    """
+    Get selected streams by checking top-level metadata
+    """
+    selected_streams = []
+    for stream in catalog['streams']:
+        for entry in stream['metadata']:
+            if not entry['breadcrumb'] and entry['metadata'].get('selected'):
+                selected_streams.append(stream['tap_stream_id'])
+    return selected_streams
+
+
+def get_selected_fields(catalog, stream_name):
+    """
+    Get selected fields for a given stream.
+    """
+    for stream in catalog['streams']:
+        if stream['tap_stream_id'] == stream_name:
+            selected_fields = []
+            for entry in stream['metadata']:
+                if len(entry['breadcrumb']) == 2 and entry['breadcrumb'][0] == 'properties':
+                    field = entry['breadcrumb'][1]
+                    if entry['metadata'].get('selected', False):
+                        selected_fields.append(field)
+            return selected_fields
+    return []
+
 
 def do_sync(service, config, catalog, state):
-    sync_reports(service, config, catalog, state)
+    selected_streams = get_selected_streams(catalog)
+
+    if not selected_streams:
+        LOGGER.warning("No streams selected. Exiting.")
+        return
+
+    for stream_name in selected_streams:
+        selected_fields = get_selected_fields(catalog, stream_name)
+        LOGGER.info(f"Syncing stream: {stream_name}, selected fields: {selected_fields}")
+
+        # Write schema (optional: adjust if needed)
+        for stream in catalog['streams']:
+            if stream['tap_stream_id'] == stream_name:
+                singer.write_schema(stream_name, stream['schema'], stream.get('key_properties', []))
+                break
+
+        # Call sync logic with selected stream and fields
+        sync_reports(service, config, catalog, state, stream_name, selected_fields)
 
     singer.write_state(state)
     LOGGER.info("Finished sync")

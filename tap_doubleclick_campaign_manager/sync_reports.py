@@ -222,7 +222,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
                 raise Exception(message)
 
 
-def sync_reports(service, config, catalog, state):
+def sync_reports(service, config, catalog, state, stream_name, selected_fields):
     profile_id = config.get('profile_id')
 
     reports = []
