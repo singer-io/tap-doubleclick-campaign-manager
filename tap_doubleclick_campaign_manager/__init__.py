@@ -11,6 +11,7 @@ from googleapiclient.http import set_user_agent
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google_auth_httplib2 import AuthorizedHttp
+from singer.transform import Transformer
 
 from tap_doubleclick_campaign_manager.discover import discover_streams
 from tap_doubleclick_campaign_manager.sync_reports import sync_reports
@@ -94,25 +95,20 @@ def get_selected_fields(catalog, stream_name):
 
 
 def do_sync(service, config, catalog, state):
-    selected_streams = get_selected_streams(catalog)
-
+    transformer = Transformer()
+    selected_streams = []
+    for stream in catalog['streams']:
+        for entry in stream['metadata']:
+            if not entry['breadcrumb'] and entry['metadata'].get('selected'):
+                selected_streams.append(stream['tap_stream_id'])
     if not selected_streams:
         LOGGER.warning("No streams selected. Exiting.")
         return
 
-    for stream_name in selected_streams:
-        selected_fields = get_selected_fields(catalog, stream_name)
-        LOGGER.info(f"Syncing stream: {stream_name}, selected fields: {selected_fields}")
-
-        # Write schema (optional: adjust if needed)
-        for stream in catalog['streams']:
-            if stream['tap_stream_id'] == stream_name:
-                singer.write_schema(stream_name, stream['schema'], stream.get('key_properties', []))
-                break
-
-        # Call sync logic with selected stream and fields
-        sync_reports(service, config, catalog, state, stream_name, selected_fields)
-
+    for stream in catalog['streams']:
+        if stream['tap_stream_id'] in selected_streams:
+            singer.write_schema(stream['tap_stream_id'], stream['schema'], stream.get('key_properties', []))
+            sync_reports(service, config, catalog, state, stream['tap_stream_id'], transformer)
     singer.write_state(state)
     LOGGER.info("Finished sync")
 
