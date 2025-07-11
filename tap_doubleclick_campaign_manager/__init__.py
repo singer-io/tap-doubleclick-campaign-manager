@@ -78,32 +78,15 @@ def get_selected_streams(catalog):
     return selected_streams
 
 
-def get_selected_fields(catalog, stream_name):
-    """
-    Get selected fields for a given stream.
-    """
-    for stream in catalog['streams']:
-        if stream['tap_stream_id'] == stream_name:
-            selected_fields = []
-            for entry in stream['metadata']:
-                if len(entry['breadcrumb']) == 2 and entry['breadcrumb'][0] == 'properties':
-                    field = entry['breadcrumb'][1]
-                    if entry['metadata'].get('selected', False):
-                        selected_fields.append(field)
-            return selected_fields
-    return []
-
-
 def do_sync(service, config, catalog, state):
-    transformer = Transformer()
-    selected_streams = get_selected_streams(catalog)
+    selected_streams = [s.stream for s in catalog.get_selected_streams(state)]
     LOGGER.info(f"selected_streams: {selected_streams}")
 
     if not selected_streams:
         LOGGER.warning("No streams selected. Exiting.")
         return
 
-    sync_reports(service, config, catalog, state, transformer)
+    sync_reports(service, config, catalog, state)
     singer.write_state(state)
     LOGGER.info("Finished sync")
 

@@ -4,7 +4,7 @@ import csv
 import time
 import random
 from datetime import datetime
-
+from singer.transform import Transformer
 import singer
 from googleapiclient import http
 
@@ -88,7 +88,7 @@ def transform_field(dfa_type, value):
     return value
 
 
-def process_file(service, fieldmap, report_config, file_id, report_time, transformer, schema, mdata):
+def process_file(service, fieldmap, report_config, file_id, report_time,schema, mdata):
     report_id = report_config['report_id']
     stream_name = report_config['stream_name']
     stream_alias = report_config['stream_alias']
@@ -127,7 +127,7 @@ def process_file(service, fieldmap, report_config, file_id, report_time, transfo
             obj[REPORT_ID_FIELD] = report_id_int
 
             # Transform the record before writing
-            transformed_obj = transformer.transform(obj, schema, mdata)
+            transformed_obj = Transformer().transform(obj, schema, mdata)
             singer.write_record(stream_name, transformed_obj, stream_alias=stream_alias)
             line_state['count'] += 1
 
@@ -142,7 +142,7 @@ def process_file(service, fieldmap, report_config, file_id, report_time, transfo
     with singer.metrics.record_counter(stream_name) as counter:
         counter.increment(line_state['count'])
 
-def sync_report(service, field_type_lookup, profile_id, report_config, transformer):
+def sync_report(service, field_type_lookup, profile_id, report_config):
     report_id = report_config['report_id']
     stream_name = report_config['stream_name']
     stream_alias = report_config['stream_alias']
@@ -205,7 +205,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config, transform
                 LOGGER.info('Report file {} had status of {}; beginning file processing.'.format(
                     report_file_id,
                     status))
-                process_file(service, fieldmap, report_config, report_file_id, report_time, transformer, schema, mdata)
+                process_file(service, fieldmap, report_config, report_file_id, report_time,schema, mdata)
                 break
 
             elif status != 'PROCESSING':
@@ -229,7 +229,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config, transform
 
 
 
-def sync_reports(service, config, catalog, state, stream_name, transformer):
+def sync_reports(service, config, catalog, state, stream_name):
     profile_id = config.get('profile_id')
 
     reports = []
@@ -272,7 +272,6 @@ def sync_reports(service, config, catalog, state, stream_name, transformer):
             field_type_lookup,
             profile_id,
             report_config,
-            transformer
         )
 
     state['reports'] = None
