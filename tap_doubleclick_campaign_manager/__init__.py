@@ -96,19 +96,14 @@ def get_selected_fields(catalog, stream_name):
 
 def do_sync(service, config, catalog, state):
     transformer = Transformer()
-    selected_streams = []
-    for stream in catalog['streams']:
-        for entry in stream['metadata']:
-            if not entry['breadcrumb'] and entry['metadata'].get('selected'):
-                selected_streams.append(stream['tap_stream_id'])
+    selected_streams = get_selected_streams(catalog)
+    LOGGER.info(f"selected_streams: {selected_streams}")
+
     if not selected_streams:
         LOGGER.warning("No streams selected. Exiting.")
         return
 
-    for stream in catalog['streams']:
-        if stream['tap_stream_id'] in selected_streams:
-            singer.write_schema(stream['tap_stream_id'], stream['schema'], stream.get('key_properties', []))
-            sync_reports(service, config, catalog, state, stream['tap_stream_id'], transformer)
+    sync_reports(service, config, catalog, state, transformer)
     singer.write_state(state)
     LOGGER.info("Finished sync")
 
