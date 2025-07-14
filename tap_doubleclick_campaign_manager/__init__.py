@@ -67,7 +67,7 @@ def do_discover(service, config):
 
 
 def do_sync(service, config, catalog, state):
-    selected_streams = [s.stream for s in catalog.get_selected_streams(state)]
+    selected_streams = [stream.stream for stream in catalog.get_selected_streams(state)]
     LOGGER.info(f"selected_streams: {selected_streams}")
 
     if not selected_streams:
