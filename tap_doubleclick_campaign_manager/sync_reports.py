@@ -4,7 +4,7 @@ import csv
 import time
 import random
 from datetime import datetime
-
+from singer.transform import Transformer
 import singer
 from googleapiclient import http
 
@@ -87,7 +87,8 @@ def transform_field(dfa_type, value):
 
     return value
 
-def process_file(service, fieldmap, report_config, file_id, report_time):
+
+def process_file(service, fieldmap, report_config, file_id, report_time, schema, mdata):
     report_id = report_config['report_id']
     stream_name = report_config['stream_name']
     stream_alias = report_config['stream_alias']
@@ -125,7 +126,10 @@ def process_file(service, fieldmap, report_config, file_id, report_time):
             obj[SINGER_REPORT_FIELD] = report_time
             obj[REPORT_ID_FIELD] = report_id_int
 
-            singer.write_record(stream_name, obj, stream_alias=stream_alias)
+            # Transform the record before writing
+            with Transformer() as transformer:
+                transformed_obj = transformer.transform(obj, schema, mdata)
+            singer.write_record(stream_name, transformed_obj, stream_alias=stream_alias)
             line_state['count'] += 1
 
     stream = StreamFunc(line_transform)
@@ -159,6 +163,9 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
     fieldmap = get_fields(field_type_lookup, report)
     schema = get_schema(stream_name, fieldmap)
     singer.write_schema(stream_name, schema, [], stream_alias=stream_alias)
+
+    # Prepare metadata for transformation
+    mdata = report_config['metadata']
 
     with singer.metrics.job_timer('run_report'):
         report_time = datetime.utcnow().isoformat() + 'Z'
@@ -199,7 +206,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
                 LOGGER.info('Report file {} had status of {}; beginning file processing.'.format(
                     report_file_id,
                     status))
-                process_file(service, fieldmap, report_config, report_file_id, report_time)
+                process_file(service, fieldmap, report_config, report_file_id, report_time, schema, mdata)
                 break
 
             elif status != 'PROCESSING':
@@ -222,6 +229,7 @@ def sync_report(service, field_type_lookup, profile_id, report_config):
                 raise Exception(message)
 
 
+
 def sync_reports(service, config, catalog, state):
     profile_id = config.get('profile_id')
 
@@ -233,8 +241,10 @@ def sync_reports(service, config, catalog, state):
             reports.append({
                 'report_id': root_metadata['tap-doubleclick-campaign-manager.report-id'],
                 'stream_name': stream.tap_stream_id,
-                'stream_alias': stream.stream_alias
+                'stream_alias': stream.stream_alias,
+                'metadata': mdata
             })
+
     reports = sorted(reports, key=lambda x: x['report_id'])
 
     # if report selection changes, we want to start over
@@ -266,3 +276,4 @@ def sync_reports(service, config, catalog, state):
     state['reports'] = None
     state['current_report'] = None
     singer.write_state(state)
+

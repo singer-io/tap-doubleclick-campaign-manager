@@ -11,6 +11,7 @@ from googleapiclient.http import set_user_agent
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google_auth_httplib2 import AuthorizedHttp
+from singer.transform import Transformer
 
 from tap_doubleclick_campaign_manager.discover import discover_streams
 from tap_doubleclick_campaign_manager.sync_reports import sync_reports
@@ -64,12 +65,16 @@ def do_discover(service, config):
     json.dump(catalog, sys.stdout, indent=2)
     LOGGER.info("Finished discover")
 
-def stream_is_selected(mdata):
-    return mdata.get((), {}).get('selected', False)
 
 def do_sync(service, config, catalog, state):
-    sync_reports(service, config, catalog, state)
+    selected_streams = [stream.stream for stream in catalog.get_selected_streams(state)]
+    LOGGER.info(f"selected_streams: {selected_streams}")
 
+    if not selected_streams:
+        LOGGER.warning("No streams selected. Exiting.")
+        return
+
+    sync_reports(service, config, catalog, state)
     singer.write_state(state)
     LOGGER.info("Finished sync")
 
