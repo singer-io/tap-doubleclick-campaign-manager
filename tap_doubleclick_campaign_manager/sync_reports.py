@@ -127,7 +127,8 @@ def process_file(service, fieldmap, report_config, file_id, report_time, schema,
             obj[REPORT_ID_FIELD] = report_id_int
 
             # Transform the record before writing
-            transformed_obj = Transformer().transform(obj, schema, mdata)
+            with Transformer() as transformer:
+                transformed_obj = transformer.transform(obj, schema, mdata)
             singer.write_record(stream_name, transformed_obj, stream_alias=stream_alias)
             line_state['count'] += 1
 
