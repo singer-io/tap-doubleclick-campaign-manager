@@ -36,9 +36,10 @@ def extract_explicitly_unselected_fields(metadata_map):
 
 
 def test_transform_all_selected_streams_from_catalog():
-    # Locate catalog.json dynamically
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-    catalog_path = os.path.join(project_root, 'catalog.json')
+    current_dir = os.path.dirname(__file__)
+    catalog_path = os.path.abspath(os.path.join(current_dir, '..', '..', 'catalog.json'))
+
+    LOGGER.info("Looking for catalog.json at: %s", catalog_path)
 
     if not os.path.exists(catalog_path):
         raise FileNotFoundError(f"catalog.json not found at {catalog_path}")
