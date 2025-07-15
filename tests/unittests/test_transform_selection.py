@@ -34,15 +34,38 @@ def extract_explicitly_unselected_fields(metadata_map):
                 explicitly_unselected.append(field)
     return explicitly_unselected
 
+def find_catalog_json(start_dir):
+    """
+    Walk up and also check common subfolders for catalog.json
+    """
+    current_dir = start_dir
+    while True:
+        # Check in current directory
+        direct_path = os.path.join(current_dir, 'catalog.json')
+        if os.path.exists(direct_path):
+            print(f"[DEBUG] Found catalog.json at: {direct_path}")
+            return direct_path
+
+        # Check tap_doubleclick_campaign_manager subfolder
+        nested_path = os.path.join(current_dir, 'tap_doubleclick_campaign_manager', 'catalog.json')
+        if os.path.exists(nested_path):
+            print(f"[DEBUG] Found catalog.json at: {nested_path}")
+            return nested_path
+
+        # Go up
+        parent = os.path.dirname(current_dir)
+        if parent == current_dir:
+            break
+        current_dir = parent
+
+    raise FileNotFoundError("catalog.json not found in any parent directory or subfolder.")
+
 
 def test_transform_all_selected_streams_from_catalog():
     current_dir = os.path.dirname(__file__)
-    catalog_path = os.path.abspath(os.path.join(current_dir, '..', '..', 'catalog.json'))
+    catalog_path = find_catalog_json(current_dir)
 
-    LOGGER.info("Looking for catalog.json at: %s", catalog_path)
-
-    if not os.path.exists(catalog_path):
-        raise FileNotFoundError(f"catalog.json not found at {catalog_path}")
+    LOGGER.info("Found catalog.json at: %s", catalog_path)
 
     with open(catalog_path) as f:
         catalog_dict = json.load(f)
