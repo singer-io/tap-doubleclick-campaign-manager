@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.2
+  * Bump dependency versions for twistlock compliance [#36](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/36)
+
 ## 1.4.1
   * Explicitly tolerate file status of 'QUEUED' [#27](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/27)
 
