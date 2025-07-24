@@ -13,8 +13,8 @@ jobs:
           command: |
             uv venv --python=3.9 /usr/local/share/virtualenvs/tap-doubleclick-campaign-manager
             source /usr/local/share/virtualenvs/tap-doubleclick-campaign-manager/bin/activate
-            pip install -U pip setuptools
-            pip install .[dev]
+            uv pip install -U pip setuptools
+            uv pip install .[dev]
       - run:
           when: always
           name: 'Unit Tests'
