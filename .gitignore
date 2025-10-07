@@ -94,6 +94,7 @@ ENV/
 
 # Custom stuff
 env.sh
+catalog.json
 config.json
 .autoenv.zsh
 
@@ -104,3 +105,4 @@ state.json
 *test.config.json
 *.catalog.json
 *.txt
+temp/
