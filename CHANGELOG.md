@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.2
+  * Add `forced-replication-method` to catalog metadata [#37](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/37)
+
 ## 1.4.1
   * Explicitly tolerate file status of 'QUEUED' [#27](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/27)
 
