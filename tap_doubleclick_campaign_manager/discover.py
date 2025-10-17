@@ -42,13 +42,11 @@ def discover_streams(service, config):
 
         metadata = []
         metadata.append({
-            'metadata': {
-                'tap-doubleclick-campaign-manager.report-id': report['id']
-            },
             'breadcrumb': [],
             'metadata': {
+                'tap-doubleclick-campaign-manager.report-id': report['id'],
                 'forced-replication-method': 'FULL_TABLE'
-            },
+            }
         })
 
         for prop in schema_dict['properties'].keys():
