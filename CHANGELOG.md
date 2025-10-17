@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.4.2
+## 1.5.0
   * Add `forced-replication-method` to catalog metadata [#37](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/37)
 
 ## 1.4.1
