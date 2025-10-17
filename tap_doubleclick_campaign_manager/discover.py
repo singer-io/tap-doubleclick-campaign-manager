@@ -40,6 +40,11 @@ def discover_streams(service, config):
         schema_dict = get_schema(stream_name, fieldmap)
         schema = Schema.from_dict(schema_dict)
 
+        # Hardcoded `forced-replication-method` to FULL_TABLE because DoubleClick Campaign Manager reports:
+        # 1. Are generated on-demand via API calls and don't support incremental sync
+        # 2. Each report run produces a complete dataset for the configured date range
+        # 3. No reliable bookmark/cursor mechanism exists for partial data extraction
+        # 4. Reports must be fully regenerated to capture any data changes or updates
         metadata = []
         metadata.append({
             'metadata': {
