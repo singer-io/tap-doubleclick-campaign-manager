@@ -11,7 +11,7 @@ setup(
     classifiers=["Programming Language :: Python :: 3 :: Only"],
     py_modules=["tap_doubleclick_campaign_manager"],
     install_requires=[
-        "singer-python==6.1.1",
+        "singer-python==6.4.0",
         "google-api-python-client==2.174.0",
         "google-auth==2.40.3",
         "backoff==2.2.1",
