@@ -1,0 +1,3553 @@
+{
+    "streams": [
+        {
+            "tap_stream_id": "candidates",
+            "stream": "candidates",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "headline": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "contact": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "stage": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "stageChanges": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {}
+                    },
+                    "location": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "phones": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "type": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "emails": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "links": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "archived": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {
+                            "archivedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "reason": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        }
+                    },
+                    "tags": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "sources": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "origin": {
+                        "type": "string"
+                    },
+                    "owner": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "followers": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "applications": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "resume": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {}
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "lastInteractionAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "lastAdvancedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "snoozedUntil": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "urls": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {}
+                    },
+                    "dataProtection": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {}
+                    },
+                    "isAnonymized": {
+                        "type": [
+                            "null",
+                            "boolean"
+                        ]
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "name"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "headline"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "contact"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "stage"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "stageChanges"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "location"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "phones"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "emails"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "links"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "archived"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "tags"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "sources"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "origin"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "owner"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "followers"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "applications"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "resume"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "lastInteractionAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "lastAdvancedAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "snoozedUntil"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "urls"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "dataProtection"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "isAnonymized"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "opportunities",
+            "stream": "opportunities",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "headline": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "contact": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "stage": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "stageChanges": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {}
+                    },
+                    "location": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "phones": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "type": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "emails": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "links": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "archived": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {
+                            "archivedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "reason": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        }
+                    },
+                    "tags": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "sources": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "origin": {
+                        "type": "string"
+                    },
+                    "owner": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "followers": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "applications": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "lastInteractionAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "lastAdvancedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "snoozedUntil": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "urls": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {}
+                    },
+                    "dataProtection": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {}
+                    },
+                    "isAnonymized": {
+                        "type": [
+                            "null",
+                            "boolean"
+                        ]
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available",
+                        "selected": true
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "name"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "headline"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "contact"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "stage"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "stageChanges"
+                    ],
+                    "metadata": {
+                        "inclusion": "available",
+                        "selected": false
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "location"
+                    ],
+                    "metadata": {
+                        "inclusion": "available",
+                        "selected": false
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "phones"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "emails"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "links"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "archived"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "tags"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "sources"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "origin"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "owner"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "followers"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "applications"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "lastInteractionAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "lastAdvancedAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "snoozedUntil"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "urls"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "dataProtection"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "isAnonymized"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "archive_reasons",
+            "stream": "archive_reasons",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "text": {
+                        "type": "string"
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "text"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "candidate_applications",
+            "stream": "candidate_applications",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "candidateId": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "posting": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "user": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "name": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "email": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "createdAt": {
+                        "type": [
+                            "null",
+                            "number"
+                        ]
+                    },
+                    "phone": {},
+                    "company": {},
+                    "links": {},
+                    "comments": {},
+                    "resume": {},
+                    "customQuestions": {},
+                    "archived": {},
+                    "postingHiringManager": {},
+                    "postingOwner": {},
+                    "requisitionForHire": {}
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "candidateId"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "type"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "posting"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "user"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "name"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "email"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "phone"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "company"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "links"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "comments"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "resume"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "customQuestions"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "archived"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "postingHiringManager"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "postingOwner"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "requisitionForHire"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "candidate_offers",
+            "stream": "candidate_offers",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "creator": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "status": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "fields": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "text": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                },
+                                "identifier": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                },
+                                "value": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "signatures": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "role": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "name": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "email": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "firstOpenedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "lastOpenedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "signedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "signed": {
+                                "type": [
+                                    "boolean",
+                                    "null"
+                                ]
+                            }
+                        }
+                    },
+                    "approvedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "sentAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "creator"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "status"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "fields"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "signatures"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "approvedAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "sentAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "candidate_referrals",
+            "stream": "candidate_referrals",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "text": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "instructions": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "fields": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "text": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "description": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "required": {
+                                    "type": [
+                                        "null",
+                                        "boolean"
+                                    ]
+                                },
+                                "value": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "prompt": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "options": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "text": {
+                                                "type": [
+                                                    "null",
+                                                    "string"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "baseTemplateId": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "user": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "referrer": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "stage": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "completedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "type"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "text"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "instructions"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "fields"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "baseTemplateId"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "user"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "referrer"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "stage"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "completedAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "candidate_resumes",
+            "stream": "candidate_resumes",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "file": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {}
+                    },
+                    "parsedData": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {}
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "file"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "parsedData"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "opportunity_applications",
+            "stream": "opportunity_applications",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "candidateId": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "posting": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "user": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "name": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "email": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "createdAt": {
+                        "type": [
+                            "null",
+                            "number"
+                        ]
+                    },
+                    "phone": {},
+                    "company": {},
+                    "links": {},
+                    "comments": {},
+                    "resume": {},
+                    "customQuestions": {},
+                    "archived": {},
+                    "postingHiringManager": {},
+                    "postingOwner": {},
+                    "requisitionForHire": {}
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "candidateId"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "type"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "posting"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "user"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "name"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "email"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "phone"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "company"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "links"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "comments"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "resume"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "customQuestions"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "archived"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "postingHiringManager"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "postingOwner"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "requisitionForHire"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "opportunity_offers",
+            "stream": "opportunity_offers",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "opportunityId": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "creator": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "status": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "fields": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "text": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                },
+                                "identifier": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                },
+                                "value": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "signatures": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "role": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "name": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "email": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "firstOpenedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "lastOpenedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "signedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "signed": {
+                                "type": [
+                                    "boolean",
+                                    "null"
+                                ]
+                            },
+                            "candidate": {
+                                "type": [
+                                    "object",
+                                    "null"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    },
+                                    "lastOpenedAt": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "format": "date-time"
+                                    },
+                                    "role": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    },
+                                    "signedAt": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "format": "date-time"
+                                    },
+                                    "firstOpenedAt": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "format": "date-time"
+                                    },
+                                    "signed": {
+                                        "type": [
+                                            "boolean",
+                                            "null"
+                                        ]
+                                    },
+                                    "name": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "approvedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "sentAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "approved": {
+                        "type": [
+                            "boolean",
+                            "null"
+                        ]
+                    },
+                    "posting": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "sentDocument": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "uploadedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "downloadUrl": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "fileName": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        }
+                    },
+                    "signedDocument": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "uploadedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "downloadUrl": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "fileName": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "opportunityId"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "creator"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "status"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "fields"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "signatures"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "approvedAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "sentAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "approved"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "posting"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "sentDocument"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "signedDocument"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "opportunity_referrals",
+            "stream": "opportunity_referrals",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "text": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "instructions": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "fields": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "text": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "description": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "required": {
+                                    "type": [
+                                        "null",
+                                        "boolean"
+                                    ]
+                                },
+                                "value": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "prompt": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "options": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "text": {
+                                                "type": [
+                                                    "null",
+                                                    "string"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "baseTemplateId": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "user": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "referrer": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "stage": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "completedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "type"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "text"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "instructions"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "fields"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "baseTemplateId"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "user"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "referrer"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "stage"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "completedAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "opportunity_resumes",
+            "stream": "opportunity_resumes",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "file": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {}
+                    },
+                    "parsedData": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {}
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "file"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "parsedData"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "postings",
+            "stream": "postings",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "text": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "user": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "owner": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "hiringManager": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "categories": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "team": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "department": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "location": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "commitment": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "level": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        }
+                    },
+                    "content": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "description": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "lists": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "text": {
+                                            "type": [
+                                                "string",
+                                                "null"
+                                            ]
+                                        },
+                                        "content": {
+                                            "type": [
+                                                "string",
+                                                "null"
+                                            ]
+                                        }
+                                    }
+                                }
+                            },
+                            "closing": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "customQuestions": {
+                                "type": "array",
+                                "items": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "tags": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "followers": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "state": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "distributionChannels": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "items": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "reqCode": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "urls": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {
+                            "list": {
+                                "type": "string"
+                            },
+                            "show": {
+                                "type": "string"
+                            },
+                            "apply": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "text"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "updatedAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "user"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "owner"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "hiringManager"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "categories"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "content"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "tags"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "followers"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "state"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "distributionChannels"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "reqCode"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "urls"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "requisitions",
+            "stream": "requisitions",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "requisitionCode": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "name": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "backfill": {
+                        "type": "boolean"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "creator": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "headcountHired": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "headcountTotal": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "status": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "hiringManager": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "owner": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "compensationBand": {},
+                    "employmentStatus": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "location": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "internalNotes": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "postings": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "department": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "team": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "offerIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "customFields": {}
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "requisitionCode"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "name"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "backfill"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "creator"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "headcountHired"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "headcountTotal"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "status"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "hiringManager"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "owner"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "compensationBand"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "employmentStatus"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "location"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "internalNotes"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "postings"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "department"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "team"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "offerIds"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "customFields"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "sources",
+            "stream": "sources",
+            "key_properties": [
+                "text"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string"
+                    },
+                    "count": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "text"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "count"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "stages",
+            "stream": "stages",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "text": {
+                        "type": "string"
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "text"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        },
+        {
+            "tap_stream_id": "users",
+            "stream": "users",
+            "key_properties": [
+                "id"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "username": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "email": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "createdAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "deactivatedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "accessRole": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "photo": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "externalDirectoryId": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                }
+            },
+            "metadata": [
+                {
+                    "breadcrumb": [],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "id"
+                    ],
+                    "metadata": {
+                        "inclusion": "automatic"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "name"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "username"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "email"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "createdAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "deactivatedAt"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "accessRole"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "photo"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                },
+                {
+                    "breadcrumb": [
+                        "properties",
+                        "externalDirectoryId"
+                    ],
+                    "metadata": {
+                        "inclusion": "available"
+                    }
+                }
+            ]
+        }
+    ]
+}
