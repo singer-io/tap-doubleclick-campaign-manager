@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0
+  * Python version upgrade to 3.12
+  * forced-replication-method addition
+
 ## 1.4.1
   * Explicitly tolerate file status of 'QUEUED' [#27](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/27)
 
