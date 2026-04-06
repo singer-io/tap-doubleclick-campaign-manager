@@ -216,3 +216,43 @@ class TestDiscoverStreamsExtended(unittest.TestCase):
 
         result = discover_streams(MagicMock(), {'profile_id': '99'})
         self.assertEqual(result['streams'][0]['key_properties'], [])
+
+
+class TestDoDiscover(unittest.TestCase):
+
+    @patch('tap_doubleclick_campaign_manager.discover_streams')
+    def test_do_discover_writes_catalog_to_stdout(self, mock_discover_streams):
+        """do_discover should JSON-dump the catalog to sys.stdout."""
+        import io
+        import json
+        import sys
+        from unittest.mock import patch as _patch
+        from tap_doubleclick_campaign_manager import do_discover
+
+        fake_catalog = {'streams': [{'stream': 'my_stream'}]}
+        mock_discover_streams.return_value = fake_catalog
+
+        captured = io.StringIO()
+        with _patch('sys.stdout', captured):
+            do_discover(MagicMock(), {'profile_id': '123'})
+
+        output = captured.getvalue()
+        parsed = json.loads(output)
+        self.assertEqual(parsed, fake_catalog)
+
+    @patch('tap_doubleclick_campaign_manager.discover_streams')
+    def test_do_discover_passes_service_and_config(self, mock_discover_streams):
+        """do_discover should forward service and config to discover_streams."""
+        import io
+        from unittest.mock import patch as _patch
+        from tap_doubleclick_campaign_manager import do_discover
+
+        mock_discover_streams.return_value = {'streams': []}
+        service = MagicMock()
+        config = {'profile_id': '42'}
+
+        captured = io.StringIO()
+        with _patch('sys.stdout', captured):
+            do_discover(service, config)
+
+        mock_discover_streams.assert_called_once_with(service, config)
