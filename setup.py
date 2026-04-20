@@ -4,22 +4,22 @@ from setuptools import setup, find_packages
 
 setup(
     name="tap-doubleclick-campaign-manager",
-    version="1.4.1",
+    version="1.5.0",
     description="Singer.io tap for extracting data from the DoubleClick for Campaign Managers API",
     author="Stitch",
     url="http://singer.io",
     classifiers=["Programming Language :: Python :: 3 :: Only"],
     py_modules=["tap_doubleclick_campaign_manager"],
     install_requires=[
-        "singer-python==6.1.1",
-        "google-api-python-client==2.174.0",
-        "google-auth==2.40.3",
+        "singer-python==6.8.0",
+        "google-api-python-client==2.193.0",
+        "google-auth==2.49.1",
         "backoff==2.2.1",
     ],
     extras_require={
         "dev": [
-            "beautifulsoup4==4.13.4",
-            "pytest==8.4.1",
+            "beautifulsoup4==4.14.3",
+            "pytest==9.0.2",
             "parameterized==0.9.0",
         ],
     },

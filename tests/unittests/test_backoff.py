@@ -111,3 +111,67 @@ class TestDoubleclickCampaignManagerClient(unittest.TestCase):
 
         # make_request should have called the function exactly 5 times
         self.assertEqual(calls["count"], 5)
+
+    @patch.object(dcm.LOGGER, "error")
+    def test_400_error_json_with_no_message_key_logs_str_fallback(self, mock_error):
+        """Test that a 400 HttpError where JSON error object has no 'message' key falls back to str(e)."""
+        payload = {"error": {"code": 400}}  # valid JSON but no 'message' key
+        error_content = json.dumps(payload).encode("utf-8")
+        func = lambda: (_ for _ in ()).throw(self.make_http_error(400, error_content))
+
+        with self.assertRaises(HttpError):
+            self.client.make_request(func)
+
+        mock_error.assert_called_once()
+        call_arg = mock_error.call_args[0][0]
+        self.assertIsInstance(call_arg, str)
+
+    @patch.object(dcm.LOGGER, "error")
+    def test_400_error_empty_payload_falls_back_to_str_e(self, mock_error):
+        """Test that a 400 error with empty JSON object logs str(e)."""
+        payload = {}
+        error_content = json.dumps(payload).encode("utf-8")
+        func = lambda: (_ for _ in ()).throw(self.make_http_error(400, error_content))
+
+        with self.assertRaises(HttpError):
+            self.client.make_request(func)
+
+        mock_error.assert_called_once()
+
+    def test_401_raises_http_error_directly(self):
+        """Test that a 401 HttpError is raised directly without special handling."""
+        func = lambda: (_ for _ in ()).throw(self.make_http_error(401, b""))
+        with self.assertRaises(HttpError):
+            self.client.make_request(func)
+
+    def test_403_raises_http_error_directly(self):
+        """Test that a 403 HttpError is raised directly without special handling."""
+        func = lambda: (_ for _ in ()).throw(self.make_http_error(403, b""))
+        with self.assertRaises(HttpError):
+            self.client.make_request(func)
+
+    def test_500_raises_server_5xx_error(self):
+        """Test that a 500 HttpError raises Server5xxError (after exhausting retries)."""
+        with patch("time.sleep", return_value=None):
+            func = lambda: (_ for _ in ()).throw(self.make_http_error(500, b""))
+            with self.assertRaises(dcm.Server5xxError):
+                self.client.make_request(func)
+
+    def test_503_raises_server_5xx_error(self):
+        """Test that a 503 HttpError raises Server5xxError (after exhausting retries)."""
+        with patch("time.sleep", return_value=None):
+            func = lambda: (_ for _ in ()).throw(self.make_http_error(503, b""))
+            with self.assertRaises(dcm.Server5xxError):
+                self.client.make_request(func)
+
+    def test_successful_request_with_none_return(self):
+        """Test that make_request correctly returns None from the function."""
+        func = lambda: None
+        result = self.client.make_request(func)
+        self.assertIsNone(result)
+
+    def test_successful_request_with_list_return(self):
+        """Test that make_request correctly returns a list from the function."""
+        func = lambda: [1, 2, 3]
+        result = self.client.make_request(func)
+        self.assertEqual(result, [1, 2, 3])
