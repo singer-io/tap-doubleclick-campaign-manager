@@ -21,28 +21,28 @@ def get_fields(field_type_lookup, report):
     report_type = report['type']
     if report_type == 'STANDARD':
         criteria_obj = report['criteria']
-        dimensions = criteria_obj['dimensions']
-        metric_names = criteria_obj['metricNames']
+        dimensions = criteria_obj.get('dimensions', [])
+        metric_names = criteria_obj.get('metricNames', [])
     elif report_type == 'FLOODLIGHT':
         criteria_obj = report['floodlightCriteria']
-        dimensions = criteria_obj['dimensions']
-        metric_names = criteria_obj['metricNames']
+        dimensions = criteria_obj.get('dimensions', [])
+        metric_names = criteria_obj.get('metricNames', [])
     elif report_type == 'CROSS_DIMENSION_REACH':
         criteria_obj = report['crossDimensionReachCriteria']
-        dimensions = criteria_obj['breakdown']
-        metric_names = criteria_obj['metricNames'] + criteria_obj['overlapMetricNames']
+        dimensions = criteria_obj.get('breakdown', [])
+        metric_names = criteria_obj.get('metricNames', []) + criteria_obj.get('overlapMetricNames', [])
     elif report_type == 'PATH_TO_CONVERSION':
         criteria_obj = report['pathToConversionCriteria']
         dimensions = (
-            criteria_obj['conversionDimensions'] +
-            criteria_obj['perInteractionDimensions'] +
-            criteria_obj['customFloodlightVariables']
+            criteria_obj.get('conversionDimensions', []) +
+            criteria_obj.get('perInteractionDimensions', []) +
+            criteria_obj.get('customFloodlightVariables', [])
         )
-        metric_names = criteria_obj['metricNames']
+        metric_names = criteria_obj.get('metricNames')
     elif report_type == 'REACH':
         criteria_obj = report['reachCriteria']
-        dimensions = criteria_obj['dimensions']
-        metric_names = criteria_obj['metricNames'] + criteria_obj['reachByFrequencyMetricNames']
+        dimensions = criteria_obj.get('dimensions', [])
+        metric_names = criteria_obj.get('metricNames', []) + criteria_obj.get('reachByFrequencyMetricNames', [])
 
     dimensions = list(map(report_dimension_fn, dimensions))
     metric_names = list(map(report_dimension_fn, metric_names))
