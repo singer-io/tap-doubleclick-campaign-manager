@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.1
+  * Upgrade package versions to fix CVE issues
+    * google-api-python-client==2.193.0 -> 2.196.0
+    * google-auth==2.49.1 -> 2.53.0
+
 ## 1.5.0
   * Python version upgrade to 3.12
   * forced-replication-method addition
