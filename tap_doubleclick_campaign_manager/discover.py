@@ -17,15 +17,24 @@ def sanitize_name(report_name):
 def discover_streams(service, config):
     profile_id = config.get('profile_id')
 
-    reports = DoubleclickCampaignManagerClient().make_request(
-        lambda: service
-            .reports()
-            .list(profileId=profile_id)
-            .execute()
-            .get('items')
-    )
+    all_reports = []
+    page_token = None
+    while True:
+        params = {'profileId': profile_id}
+        if page_token:
+            params['pageToken'] = page_token
+        response = DoubleclickCampaignManagerClient().make_request(
+            lambda: service
+                .reports()
+                .list(**params)
+                .execute()
+        )
+        all_reports.extend(response.get('items') or [])
+        page_token = response.get('nextPageToken')
+        if not page_token:
+            break
 
-    reports = sorted(reports, key=lambda x: x['id'])
+    reports = sorted(all_reports, key=lambda x: x['id'])
     report_configs = {}
     for report in reports:
         stream_name = sanitize_name(report['name'])
