@@ -305,6 +305,3 @@ class DcmDiscoveryTest(DcmBaseTest, unittest.TestCase):
             with self.subTest(tap_stream_id=stream["tap_stream_id"]):
                 self.assertEqual(stream.get("stream_alias"), stream["stream"])
 
-
-if __name__ == "__main__":
-    unittest.main()

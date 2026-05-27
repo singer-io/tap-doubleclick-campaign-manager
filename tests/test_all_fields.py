@@ -256,6 +256,3 @@ class DcmAllFieldsTest(DcmBaseTest, unittest.TestCase):
                     self.assertIn(SINGER_REPORT_FIELD, rec)
                     self.assertIn(REPORT_ID_FIELD, rec)
 
-
-if __name__ == "__main__":
-    unittest.main()

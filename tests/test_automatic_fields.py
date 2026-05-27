@@ -196,6 +196,3 @@ class DcmAutomaticFieldsTest(DcmBaseTest, unittest.TestCase):
                                 msg="Grand Total marker appeared in a record",
                             )
 
-
-if __name__ == "__main__":
-    unittest.main()

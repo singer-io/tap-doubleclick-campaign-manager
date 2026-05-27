@@ -256,6 +256,3 @@ class DcmPaginationTest(DcmBaseTest, unittest.TestCase):
         self.assertIn("sales_report_5001", tap_stream_ids)
         self.assertIn("sales_report_5002", tap_stream_ids)
 
-
-if __name__ == "__main__":
-    unittest.main()
