@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2
+  * Fix silent data truncation in `discover_streams()` — `reports.list` is a paginated API (max 10 results per page) and the previous implementation only fetched the first page, causing reports beyond page 1 to be silently omitted from the catalog. Added `nextPageToken` loop to collect all pages. [#43](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/43)
+  * Add mock integration tests for all five DCM report type streams (STANDARD, FLOODLIGHT, CROSS_DIMENSION_REACH, PATH_TO_CONVERSION, REACH) [#43](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/43)
+
 ## 1.5.1
   * Upgrade package versions to fix CVE issues
     * google-api-python-client==2.193.0 -> 2.196.0
