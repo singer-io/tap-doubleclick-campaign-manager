@@ -34,7 +34,7 @@ from tap_doubleclick_campaign_manager.discover import discover_streams
 from tap_doubleclick_campaign_manager.schema import SINGER_REPORT_FIELD, REPORT_ID_FIELD
 
 
-class TestDcmDiscovery(DcmBaseTest, unittest.TestCase):
+class DcmDiscoveryTest(DcmBaseTest, unittest.TestCase):
     """Verify discover_streams() builds the correct Singer Catalog."""
 
     # ── Stream presence ──────────────────────────────────────────────────
@@ -143,6 +143,28 @@ class TestDcmDiscovery(DcmBaseTest, unittest.TestCase):
                     root_meta["metadata"]["forced-replication-method"],
                     "FULL_TABLE",
                 )
+
+    def test_all_streams_are_full_table(self):
+        """expected_metadata() must report FULL_TABLE for every DCM stream."""
+        for stream_id, meta in self.expected_metadata().items():
+            with self.subTest(stream=stream_id):
+                self.assertEqual(meta[self.REPLICATION_METHOD], self.FULL_TABLE)
+
+    def test_all_streams_have_no_replication_keys(self):
+        """All DCM streams are FULL_TABLE — no replication keys expected."""
+        for stream_id, meta in self.expected_metadata().items():
+            with self.subTest(stream=stream_id):
+                self.assertEqual(meta[self.REPLICATION_KEYS], set())
+
+    def test_full_table_streams_do_not_obey_start_date(self):
+        """All DCM streams must have OBEYS_START_DATE=False in expected_metadata."""
+        for stream_id, meta in self.expected_metadata().items():
+            with self.subTest(stream=stream_id):
+                self.assertFalse(meta[self.OBEYS_START_DATE])
+
+    def test_full_table_streams_set_matches_all_streams(self):
+        """full_table_streams() must return every expected stream."""
+        self.assertEqual(self.full_table_streams(), self.expected_stream_names())
 
     def test_discovery_report_id_in_root_metadata(self):
         """The DCM report-id must be stored in root metadata for each stream."""

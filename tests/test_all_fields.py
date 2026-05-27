@@ -50,7 +50,7 @@ from tap_doubleclick_campaign_manager.schema import (
 KNOWN_MISSING_FIELDS: dict[str, set[str]] = {}
 
 
-class TestDcmAllFields(DcmBaseTest, unittest.TestCase):
+class DcmAllFieldsTest(DcmBaseTest, unittest.TestCase):
     """Ensure every schema field appears in the records written during sync."""
 
     # ── Generic assertion helper ─────────────────────────────────────────

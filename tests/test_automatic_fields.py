@@ -44,7 +44,7 @@ from tap_doubleclick_campaign_manager.schema import (
 from tap_doubleclick_campaign_manager.sync_reports import sync_report
 
 
-class TestDcmAutomaticFields(DcmBaseTest, unittest.TestCase):
+class DcmAutomaticFieldsTest(DcmBaseTest, unittest.TestCase):
     """
     Verify that _sdc_report_time and _sdc_report_id (automatic / system fields)
     are always injected into records for every report type.

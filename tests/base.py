@@ -276,13 +276,21 @@ def build_catalog_from_reports(reports: list[dict], selected: bool = True) -> Ca
 # ---------------------------------------------------------------------------
 
 class DcmBaseTest:
-    """
-    Base mixin for tap-doubleclick-campaign-manager mock integration tests.
+    """Base test mixin for tap-doubleclick-campaign-manager mock integration tests.
 
     Not a TestCase itself — mix with unittest.TestCase in each test file.
+    All Google API calls are patched at the service level; no live credentials required.
     """
 
+    # ── Metadata constants ───────────────────────────────────────────────
+    PRIMARY_KEYS = "primary_keys"
+    REPLICATION_METHOD = "replication_method"
+    REPLICATION_KEYS = "replication_keys"
+    OBEYS_START_DATE = "obeys_start_date"
+
     FULL_TABLE = "FULL_TABLE"
+
+    default_start_date = "2024-01-01T00:00:00Z"
 
     MOCK_PROFILE_ID = "12345"
     MOCK_CONFIG = {
@@ -296,6 +304,26 @@ class DcmBaseTest:
     MOCK_REPORTS = ALL_MOCK_REPORTS
     REPORT_BY_ID = {r["id"]: r for r in ALL_MOCK_REPORTS}
 
+    # ── Stream metadata ──────────────────────────────────────────────────
+
+    @classmethod
+    def expected_metadata(cls):
+        """Expected streams and metadata — all DCM report streams are FULL_TABLE."""
+        return {
+            _expected_tap_stream_id(r): {
+                cls.PRIMARY_KEYS: set(),
+                cls.REPLICATION_METHOD: cls.FULL_TABLE,
+                cls.REPLICATION_KEYS: set(),
+                cls.OBEYS_START_DATE: False,
+            }
+            for r in ALL_MOCK_REPORTS
+        }
+
+    @classmethod
+    def expected_stream_names(cls):
+        """Return the set of all expected tap_stream_ids."""
+        return set(cls.expected_metadata().keys())
+
     @classmethod
     def expected_tap_stream_ids(cls) -> set[str]:
         return EXPECTED_TAP_STREAM_IDS
@@ -304,11 +332,41 @@ class DcmBaseTest:
     def expected_stream_count(cls) -> int:
         return len(cls.MOCK_REPORTS)
 
+    @classmethod
+    def full_table_streams(cls):
+        """Return all streams that use FULL_TABLE replication (all DCM streams)."""
+        return {
+            s for s, m in cls.expected_metadata().items()
+            if m[cls.REPLICATION_METHOD] == cls.FULL_TABLE
+        }
+
     # ── Setup / teardown ────────────────────────────────────────────────
 
     def setUp(self):
-        self.config = dict(self.MOCK_CONFIG)
+        """Set up test fixtures with dummy config and empty state."""
+        self.config = self.get_mock_config()
         self.state = {}
+
+    def tearDown(self):
+        """Clean up after tests."""
+        pass
+
+    # ── Config helpers ───────────────────────────────────────────────────
+
+    @staticmethod
+    def get_mock_config():
+        """Return mock configuration with dummy values — no real credentials."""
+        return {
+            "client_id": "mock-client-id",
+            "client_secret": "mock-client-secret",
+            "refresh_token": "mock-refresh-token",
+            "profile_id": "12345",
+        }
+
+    @staticmethod
+    def get_mock_state():
+        """Return initial mock state."""
+        return {}
 
     # ── Service + catalog helpers ────────────────────────────────────────
 

@@ -37,7 +37,7 @@ except ImportError:
 from tap_doubleclick_campaign_manager.discover import discover_streams
 
 
-class TestDcmDiscoveryPagination(DcmBaseTest, unittest.TestCase):
+class DcmPaginationTest(DcmBaseTest, unittest.TestCase):
     """
     Verify discover_streams() pages through all available reports via
     nextPageToken, building a complete catalog.

@@ -89,7 +89,7 @@ def _make_catalog(reports: list[dict], selected: bool = True) -> Catalog:
 # sync_report() tests
 # ---------------------------------------------------------------------------
 
-class TestDcmSyncReport(DcmBaseTest, unittest.TestCase):
+class DcmSyncReportTest(DcmBaseTest, unittest.TestCase):
     """Test the sync_report() function in isolation with mocked service."""
 
     # ── Records are written ───────────────────────────────────────────────
@@ -323,7 +323,7 @@ class TestDcmSyncReport(DcmBaseTest, unittest.TestCase):
 # sync_reports() orchestration tests
 # ---------------------------------------------------------------------------
 
-class TestDcmSyncReports(DcmBaseTest, unittest.TestCase):
+class DcmSyncReportsTest(DcmBaseTest, unittest.TestCase):
     """Test the sync_reports() orchestration layer with mocked sub-calls."""
 
     @patch("tap_doubleclick_campaign_manager.sync_reports.sync_report")
