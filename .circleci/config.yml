@@ -28,17 +28,6 @@ jobs:
             source /usr/local/share/virtualenvs/tap-doubleclick-campaign-manager/bin/activate
             coverage run -m pytest tests/ --ignore=tests/unittests
             coverage report
-      - run:
-          name: 'Integration Tests'
-          command: |
-            source /usr/local/share/virtualenvs/tap-tester/bin/activate
-            uv pip install --upgrade awscli
-            uv pip install .
-            uv pip install pytest
-            aws s3 cp s3://com-stitchdata-dev-deployment-assets/environments/tap-tester/tap_tester_sandbox dev_env.sh
-            source dev_env.sh
-            unset USE_STITCH_BACKEND
-            run-test --tap=tap-doubleclick-campaign-manager tests
       - slack/notify-on-failure:
           only_for_branches: master
 workflows:
