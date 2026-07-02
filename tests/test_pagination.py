@@ -196,6 +196,32 @@ class DcmPaginationTest(DcmBaseTest, unittest.TestCase):
         first_call_kwargs = list_mock.call_args_list[0][1]
         self.assertNotIn("pageToken", first_call_kwargs)
 
+    def test_stops_after_page_with_no_next_token(self):
+        """Pagination must stop when response has no nextPageToken."""
+        service = MagicMock()
+        execute_mock = service.reports.return_value.list.return_value.execute
+        execute_mock.side_effect = [
+            {"items": [STANDARD_REPORT], "nextPageToken": "page_1"},
+            {"items": [FLOODLIGHT_REPORT]},
+        ]
+
+        catalog_dict = discover_streams(service, self.MOCK_CONFIG)
+        self.assertEqual(execute_mock.call_count, 2)
+        self.assertEqual(len(catalog_dict["streams"]), 2)
+
+    def test_empty_page_with_repeated_token_does_not_loop_forever(self):
+        """A repeated token on an empty page must terminate pagination safely."""
+        service = MagicMock()
+        execute_mock = service.reports.return_value.list.return_value.execute
+        execute_mock.side_effect = [
+            {"items": [STANDARD_REPORT], "nextPageToken": "same_token"},
+            {"items": [], "nextPageToken": "same_token"},
+        ]
+
+        catalog_dict = discover_streams(service, self.MOCK_CONFIG)
+        self.assertEqual(execute_mock.call_count, 2)
+        self.assertEqual(len(catalog_dict["streams"]), 1)
+
     # ── Large page simulation ─────────────────────────────────────────────
 
     def test_many_reports_on_single_page(self):

@@ -4,6 +4,7 @@ Calls discover_streams() with a mocked Google API service — no real credential
 or network access required.  Verifies catalog structure for all five DCM report
 types: STANDARD, FLOODLIGHT, CROSS_DIMENSION_REACH, PATH_TO_CONVERSION, REACH.
 """
+import re
 import unittest
 from singer import metadata
 
@@ -58,6 +59,13 @@ class DcmDiscoveryTest(DcmBaseTest, unittest.TestCase):
                 # tap_stream_id = {stream}_{report_id}, so strip the numeric suffix
                 expected_stream = stream["tap_stream_id"].rsplit("_", 1)[0]
                 self.assertEqual(stream["stream"], expected_stream)
+
+    def test_discovery_stream_names_match_regex(self):
+        """Stream names must be lowercase alphanumerics/underscores only."""
+        catalog_dict = self._discover()
+        for stream in catalog_dict["streams"]:
+            with self.subTest(tap_stream_id=stream["tap_stream_id"]):
+                self.assertRegex(stream["stream"], r"^[a-z0-9_]+$")
 
     def test_discovery_tap_stream_id_contains_report_id(self):
         """tap_stream_id must end with the numeric report id."""
@@ -199,6 +207,28 @@ class DcmDiscoveryTest(DcmBaseTest, unittest.TestCase):
         for stream in catalog_dict["streams"]:
             with self.subTest(tap_stream_id=stream["tap_stream_id"]):
                 self.assertGreater(len(stream["metadata"]), 0)
+
+    def test_discovery_exactly_one_top_level_breadcrumb(self):
+        """Every stream must have exactly one top-level metadata breadcrumb."""
+        catalog_dict = self._discover()
+        for stream in catalog_dict["streams"]:
+            with self.subTest(tap_stream_id=stream["tap_stream_id"]):
+                top_level = [m for m in stream["metadata"] if m["breadcrumb"] == []]
+                self.assertEqual(len(top_level), 1)
+
+    def test_discovery_has_no_duplicate_property_metadata_entries(self):
+        """Property metadata breadcrumbs must not contain duplicates."""
+        catalog_dict = self._discover()
+        for stream in catalog_dict["streams"]:
+            with self.subTest(tap_stream_id=stream["tap_stream_id"]):
+                property_breadcrumbs = [
+                    tuple(m["breadcrumb"]) for m in stream["metadata"]
+                    if m["breadcrumb"] != []
+                ]
+                self.assertEqual(
+                    len(property_breadcrumbs),
+                    len(set(property_breadcrumbs)),
+                )
 
     def test_discovery_no_primary_keys(self):
         """DCM report streams have no natural primary keys (empty key_properties)."""

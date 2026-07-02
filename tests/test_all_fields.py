@@ -4,6 +4,7 @@ Patches MediaIoBaseDownload and singer.write_record to capture written records
 and verify every dimension/metric column plus SdC system fields are present.
 No live credentials or network access required.
 """
+from datetime import datetime
 import unittest
 from unittest.mock import patch, MagicMock
 
@@ -53,6 +54,10 @@ KNOWN_MISSING_FIELDS: dict[str, set[str]] = {}
 class DcmAllFieldsTest(DcmBaseTest, unittest.TestCase):
     """Ensure every schema field appears in the records written during sync."""
 
+    @staticmethod
+    def _assert_rfc3339_datetime(value: str):
+        datetime.fromisoformat(value.replace("Z", "+00:00"))
+
     # ── Generic assertion helper ─────────────────────────────────────────
 
     def _assert_all_report_fields_present(self, report: dict, n_rows: int = 2):
@@ -73,16 +78,38 @@ class DcmAllFieldsTest(DcmBaseTest, unittest.TestCase):
         required = expected_fields - known_missing
 
         actual_fields = set().union(*(set(r.keys()) for r in written))
-        missing = required - actual_fields
-
-        self.assertEqual(
-            missing,
-            set(),
+        self.assertSetEqual(
+            actual_fields,
+            required,
             msg=(
-                f"Stream '{tap_stream_id}': fields missing from written records: "
-                f"{missing}"
+                f"Stream '{tap_stream_id}': expected exact fields {required}, "
+                f"got {actual_fields}"
             ),
         )
+
+    def _assert_datetime_fields_are_rfc3339(self, report: dict):
+        """Fields with JSON Schema format=date-time must contain RFC3339 strings."""
+        field_type_lookup = get_field_type_lookup()
+        schema = self._schema_for_report(report, field_type_lookup)
+        datetime_fields = [
+            name for name, props in schema["properties"].items()
+            if props.get("format") == "date-time"
+        ]
+        written = self._run_sync_for_report(report)
+        for rec in written:
+            for field in datetime_fields:
+                value = rec.get(field)
+                with self.subTest(report_id=report["id"], field=field):
+                    self.assertIsNotNone(value)
+                    self.assertIsInstance(value, str)
+                    self._assert_rfc3339_datetime(value)
+
+    @staticmethod
+    def _schema_for_report(report: dict, field_type_lookup: dict):
+        from tap_doubleclick_campaign_manager.schema import get_fields, get_schema
+
+        fieldmap = get_fields(field_type_lookup, report)
+        return get_schema(_expected_tap_stream_id(report), fieldmap)
 
     # ── SdC system fields — all streams ──────────────────────────────────
 
@@ -255,4 +282,10 @@ class DcmAllFieldsTest(DcmBaseTest, unittest.TestCase):
                 for rec in written:
                     self.assertIn(SINGER_REPORT_FIELD, rec)
                     self.assertIn(REPORT_ID_FIELD, rec)
+
+    def test_datetime_fields_are_rfc3339_for_all_report_types(self):
+        """Any schema field marked date-time must emit RFC3339 values."""
+        for report in self.MOCK_REPORTS:
+            with self.subTest(report_type=report["type"]):
+                self._assert_datetime_fields_are_rfc3339(report)
 

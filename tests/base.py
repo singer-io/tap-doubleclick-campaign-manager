@@ -132,7 +132,7 @@ def build_sample_rows_for_report(report: dict, n: int = 2) -> list[list]:
     """
     Build *n* sample data rows whose values match the report's field types.
 
-    Integers → 100, 200, …; strings → "2024-01-01", "2024-01-02", …
+    Integers → 100, 200, …; date-like strings → RFC3339 UTC values.
     """
     field_type_lookup = get_field_type_lookup()
     fieldmap = get_fields(field_type_lookup, report)
@@ -150,8 +150,17 @@ def build_sample_rows_for_report(report: dict, n: int = 2) -> list[list]:
             elif ft == "boolean":
                 row.append("true" if i % 2 == 0 else "false")
             else:
-                # string / date fields: use a realistic date string
-                row.append(f"2024-01-0{i + 1}")
+                # Use RFC3339 for date-like columns to match checklist expectations.
+                field_name = field["name"]
+                if (
+                    field_name.endswith("_time")
+                    or field_name.endswith("_date")
+                    or "date" in field_name
+                    or "time" in field_name
+                ):
+                    row.append(f"2024-01-{i + 1:02d}T00:00:00Z")
+                else:
+                    row.append(f"value_{i + 1}")
         rows.append(row)
     return rows
 

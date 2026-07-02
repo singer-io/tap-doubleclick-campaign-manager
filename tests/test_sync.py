@@ -380,6 +380,20 @@ class DcmSyncReportsTest(DcmBaseTest, unittest.TestCase):
     @patch("tap_doubleclick_campaign_manager.sync_reports.sync_report")
     @patch("tap_doubleclick_campaign_manager.sync_reports.get_field_type_lookup")
     @patch("singer.write_state")
+    def test_full_table_sync_does_not_create_bookmarks_or_currently_syncing(
+        self, mock_ws, mock_lookup, mock_sr
+    ):
+        """FULL_TABLE DCM streams must not populate Singer bookmarks/currently_syncing."""
+        mock_lookup.return_value = {}
+        catalog = _make_catalog([STANDARD_REPORT, FLOODLIGHT_REPORT], selected=True)
+        sync_reports(MagicMock(), self.MOCK_CONFIG, catalog, self.state)
+
+        self.assertIsNone(self.state.get("bookmarks"))
+        self.assertIsNone(self.state.get("currently_syncing"))
+
+    @patch("tap_doubleclick_campaign_manager.sync_reports.sync_report")
+    @patch("tap_doubleclick_campaign_manager.sync_reports.get_field_type_lookup")
+    @patch("singer.write_state")
     def test_state_reset_when_report_list_changes(self, mock_ws, mock_lookup, mock_sr):
         """If the report list in state differs from current, current_report resets."""
         mock_lookup.return_value = {}

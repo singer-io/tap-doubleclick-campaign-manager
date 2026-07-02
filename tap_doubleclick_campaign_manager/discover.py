@@ -19,7 +19,12 @@ def discover_streams(service, config):
 
     all_reports = []
     page_token = None
-    while True:
+    has_more_pages = True
+    pages_fetched = 0
+    max_pages = 1000
+    seen_page_tokens = set()
+
+    while has_more_pages and pages_fetched < max_pages:
         params = {'profileId': profile_id}
         if page_token:
             params['pageToken'] = page_token
@@ -29,10 +34,17 @@ def discover_streams(service, config):
                 .list(**params)
                 .execute()
         )
+        pages_fetched += 1
         all_reports.extend(response.get('items') or [])
-        page_token = response.get('nextPageToken')
-        if not page_token:
-            break
+        next_page_token = response.get('nextPageToken')
+        if not next_page_token:
+            has_more_pages = False
+        elif next_page_token in seen_page_tokens:
+            # Defensive guard against a looping API token.
+            has_more_pages = False
+        else:
+            seen_page_tokens.add(next_page_token)
+            page_token = next_page_token
 
     reports = sorted(all_reports, key=lambda x: x['id'])
     report_configs = {}
