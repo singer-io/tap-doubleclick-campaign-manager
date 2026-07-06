@@ -36,7 +36,7 @@ class TestDiscoverFunctions(unittest.TestCase):
         mock_reports_list = MagicMock()
         mock_reports_list.list.return_value.execute.return_value.get.return_value = mock_reports
         mock_service.reports.return_value = mock_reports_list
-        mock_client.make_request.return_value = mock_reports
+        mock_client.make_request.return_value = {'items': mock_reports}
         
         # Mock field type lookup
         mock_get_field_type_lookup.return_value = {
@@ -132,7 +132,7 @@ class TestDiscoverStreamsExtended(unittest.TestCase):
             {'id': 100, 'name': 'Alpha Report', 'type': 'STANDARD',
              'criteria': {'dimensions': [], 'metricNames': []}},
         ]
-        mock_client.make_request.return_value = mock_reports
+        mock_client.make_request.return_value = {'items': mock_reports}
         mock_get_field_type_lookup.return_value = {}
 
         result = discover_streams(MagicMock(), {'profile_id': '99'})
@@ -146,7 +146,7 @@ class TestDiscoverStreamsExtended(unittest.TestCase):
         """discover_streams with no reports should return a catalog with no streams."""
         mock_client = MagicMock()
         mock_client_class.return_value = mock_client
-        mock_client.make_request.return_value = []
+        mock_client.make_request.return_value = {'items': []}
         mock_get_field_type_lookup.return_value = {}
 
         result = discover_streams(MagicMock(), {'profile_id': '99'})
@@ -158,10 +158,10 @@ class TestDiscoverStreamsExtended(unittest.TestCase):
         """tap_stream_id should be '<sanitized_name>_<report_id>'."""
         mock_client = MagicMock()
         mock_client_class.return_value = mock_client
-        mock_client.make_request.return_value = [
+        mock_client.make_request.return_value = {'items': [
             {'id': 42, 'name': 'My Report', 'type': 'STANDARD',
              'criteria': {'dimensions': [], 'metricNames': []}}
-        ]
+        ]}
         mock_get_field_type_lookup.return_value = {}
 
         result = discover_streams(MagicMock(), {'profile_id': '99'})
@@ -173,10 +173,10 @@ class TestDiscoverStreamsExtended(unittest.TestCase):
         """All field-level metadata entries should have inclusion=automatic."""
         mock_client = MagicMock()
         mock_client_class.return_value = mock_client
-        mock_client.make_request.return_value = [
+        mock_client.make_request.return_value = {'items': [
             {'id': 1, 'name': 'Test', 'type': 'STANDARD',
              'criteria': {'dimensions': ['date'], 'metricNames': ['impressions']}}
-        ]
+        ]}
         mock_get_field_type_lookup.return_value = {'date': 'string', 'impressions': 'long'}
 
         result = discover_streams(MagicMock(), {'profile_id': '99'})
@@ -192,10 +192,10 @@ class TestDiscoverStreamsExtended(unittest.TestCase):
         """stream and stream_alias should both equal the sanitized report name."""
         mock_client = MagicMock()
         mock_client_class.return_value = mock_client
-        mock_client.make_request.return_value = [
+        mock_client.make_request.return_value = {'items': [
             {'id': 7, 'name': 'My Stream', 'type': 'STANDARD',
              'criteria': {'dimensions': [], 'metricNames': []}}
-        ]
+        ]}
         mock_get_field_type_lookup.return_value = {}
 
         result = discover_streams(MagicMock(), {'profile_id': '99'})
@@ -208,10 +208,10 @@ class TestDiscoverStreamsExtended(unittest.TestCase):
         """key_properties should be an empty list."""
         mock_client = MagicMock()
         mock_client_class.return_value = mock_client
-        mock_client.make_request.return_value = [
+        mock_client.make_request.return_value = {'items': [
             {'id': 99, 'name': 'Test Report', 'type': 'STANDARD',
              'criteria': {'dimensions': [], 'metricNames': []}}
-        ]
+        ]}
         mock_get_field_type_lookup.return_value = {}
 
         result = discover_streams(MagicMock(), {'profile_id': '99'})

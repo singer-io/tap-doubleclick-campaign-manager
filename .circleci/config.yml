@@ -21,6 +21,13 @@ jobs:
             source /usr/local/share/virtualenvs/tap-doubleclick-campaign-manager/bin/activate
             uv pip install pytest coverage
             coverage run -m pytest tests/unittests
+            coverage report
+      - run:
+          name: 'Mock Integration Tests'
+          command: |
+            source /usr/local/share/virtualenvs/tap-doubleclick-campaign-manager/bin/activate
+            coverage run -m pytest tests/ --ignore=tests/unittests
+            coverage report
       - slack/notify-on-failure:
           only_for_branches: master
 workflows:

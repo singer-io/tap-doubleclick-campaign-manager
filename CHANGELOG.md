@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2
+  * Fix `discover_streams()` to paginate through all pages of `reports.list` (previously only first page was fetched) [#43](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/43)
+  * Add mock integration tests for all five DCM report types [#43](https://github.com/singer-io/tap-doubleclick-campaign-manager/pull/43)
+
 ## 1.5.1
   * Upgrade package versions to fix CVE issues
     * google-api-python-client==2.193.0 -> 2.196.0
