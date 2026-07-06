@@ -22,6 +22,33 @@ To run `tap-doubleclick-campaign-manager` with the configuration file, use this 
 › tap-doubleclick-campaign-manager -c my-config.json
 ```
 
+## Testing
+
+Install the development dependencies:
+
+```bash
+pip install -e ".[dev]"
+```
+
+### Unit Tests
+
+```bash
+pytest tests/unittests
+```
+
+### Mock Integration Tests
+
+```bash
+pytest tests/ --ignore=tests/unittests
+```
+
+To run with coverage:
+
+```bash
+coverage run -m pytest tests/ --ignore=tests/unittests
+coverage report
+```
+
 ---
 
 Copyright &copy; 2018 Stitch
